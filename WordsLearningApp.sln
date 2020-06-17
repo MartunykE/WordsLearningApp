@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordsLearningApp.WEB", "WordsLearningApp.WEB\WordsLearningApp.WEB.csproj", "{AD85D805-EB1C-49AF-B474-3A98967D041C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordsLearningApp.DAL", "WordsLearningApp.DAL\WordsLearningApp.DAL.csproj", "{A5C7B396-229B-4768-AE90-4084ABA7BC18}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AD85D805-EB1C-49AF-B474-3A98967D041C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD85D805-EB1C-49AF-B474-3A98967D041C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD85D805-EB1C-49AF-B474-3A98967D041C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD85D805-EB1C-49AF-B474-3A98967D041C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5C7B396-229B-4768-AE90-4084ABA7BC18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5C7B396-229B-4768-AE90-4084ABA7BC18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5C7B396-229B-4768-AE90-4084ABA7BC18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5C7B396-229B-4768-AE90-4084ABA7BC18}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5BDDE53D-5516-4A96-AF16-16320944B5BF}
+	EndGlobalSection
+EndGlobal
