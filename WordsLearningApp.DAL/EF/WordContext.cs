@@ -6,7 +6,7 @@ using WordsLearningApp.DAL.Models;
 
 namespace WordsLearningApp.DAL.EF
 {
-    class WordContext : DbContext
+    public class WordContext : DbContext
     {
         //check connection string 
         public WordContext(DbContextOptions<WordContext> options)

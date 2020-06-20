@@ -33,7 +33,7 @@ namespace WordsLearningApp.DAL.Repositories
 
         public IEnumerable<User> Find(Func<User, bool> predicate)
         {
-            return db.Users.Include(p => p.Words).Where(predicate).ToList();
+            return db.Users.Include(p => p.Id).Where(predicate).ToList();
         }
 
         public User Get(int id)

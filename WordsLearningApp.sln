@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordsLearningApp.WEB", "WordsLearningApp.WEB\WordsLearningApp.WEB.csproj", "{AD85D805-EB1C-49AF-B474-3A98967D041C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordsLearningApp.WEB", "WordsLearningApp.WEB\WordsLearningApp.WEB.csproj", "{AD85D805-EB1C-49AF-B474-3A98967D041C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordsLearningApp.DAL", "WordsLearningApp.DAL\WordsLearningApp.DAL.csproj", "{A5C7B396-229B-4768-AE90-4084ABA7BC18}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordsLearningApp.DAL", "WordsLearningApp.DAL\WordsLearningApp.DAL.csproj", "{A5C7B396-229B-4768-AE90-4084ABA7BC18}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
