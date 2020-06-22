@@ -26,7 +26,7 @@ namespace WordsLearningApp.WEB.Models
             commandsList.Add(new StartCommand());
             commandsList.Add(new HelloComand());
 
-            botClient = new TelegramBotClient("1230523330:AAHSjCV48j99JxZs-927QUK5dBj-481R424");
+            botClient = new TelegramBotClient(BotSettings.Key);
             botClient.OnMessage += OnMessage;
             botClient.StartReceiving();
 
