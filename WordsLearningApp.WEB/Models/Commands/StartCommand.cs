@@ -10,16 +10,7 @@ namespace WordsLearningApp.WEB.Models.Commands
     public class StartCommand : Command
     {
         public override string Name => @"/start";
-
-        public override bool Contains(Message message)
-        {
-            if (message.Type != Telegram.Bot.Types.Enums.MessageType.Text)
-            {
-                return false;
-            }
-
-            return message.Text.Contains(this.Name);
-        }
+       
 
         public async override Task Execute(Message message, TelegramBotClient telegramBotClient)
         {

@@ -10,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WordsLearningApp.DAL.EF;
-
+using WordsLearningApp.WEB.Models;
 
 namespace WordsLearningApp.WEB
 {
@@ -25,9 +25,9 @@ namespace WordsLearningApp.WEB
 
         public void ConfigureServices(IServiceCollection services)
         {
+            Bot.GetBotClientAsync();
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<WordContext>(options => options.UseSqlServer(connection));
-            services.AddControllersWithViews();
 
         }
 
@@ -44,19 +44,11 @@ namespace WordsLearningApp.WEB
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseRouting();
+           
 
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-            });
+          
         }
     }
 }
