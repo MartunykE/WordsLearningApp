@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using WordsLearningApp.BLL.BussinesModels;
 
 namespace WordsLearningApp.BLL.DTO
 {
-    class UserDTO
+    public class UserDTO
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -12,10 +10,5 @@ namespace WordsLearningApp.BLL.DTO
         public int WordId { get; set; }
     }
 
-    enum ShowFrequency
-    {
-        common,
-        often,
-        rare
-    }
+   
 }

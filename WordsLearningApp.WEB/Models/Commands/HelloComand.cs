@@ -4,11 +4,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
+using WordsLearningApp.BLL.Interfaces;
 
 namespace WordsLearningApp.WEB.Models.Commands
 {
     public class HelloComand : Command
     {
+        IWordsService wordsService;
+        public HelloComand(IWordsService wordsService)
+        {
+            this.wordsService = wordsService;
+        }
         public override string Name => "Hello";
 
         public override async Task Execute(Message message, TelegramBotClient telegramBotClient)

@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using WordsLearningApp.BLL.DTO;
+﻿using WordsLearningApp.BLL.DTO;
+using WordsLearningApp.BLL.BussinesModels;
 
 namespace WordsLearningApp.BLL.Interfaces
 {
-    interface IWordsService
+    public interface IWordsService
     {
         // return result??
-        void CreateWord(WordDTO word);
+        public void CreateWord(WordDTO word);
 
-        void EditWord(WordDTO word);
-        WordDTO GetWord(int id);
-        void DeleteWord(int id);
-        void ChangeShowFrequency(ShowFrequency showFrequencyLevel);
+        public void EditWord(WordDTO word);
+        public WordDTO GetWord(int id);
+        public void DeleteWord(int id);
+        public void ChangeShowFrequency(ShowFrequency showFrequencyLevel);
 
     }
 }

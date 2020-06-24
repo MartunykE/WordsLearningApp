@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WordsLearningApp.BLL.BussinesModels
 {
-    enum ShowFrequency
+    public enum ShowFrequency
     {
         common,
         often,

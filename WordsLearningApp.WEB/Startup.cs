@@ -9,8 +9,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using WordsLearningApp.DAL.EF;
 using WordsLearningApp.WEB.Models;
+using WordsLearningApp.BLL.Interfaces;
+using WordsLearningApp.BLL.Services;
+using WordsLearningApp.Root;
+using WordsLearningApp.DAL.Interfaces;
 
 namespace WordsLearningApp.WEB
 {
@@ -25,14 +28,19 @@ namespace WordsLearningApp.WEB
 
         public void ConfigureServices(IServiceCollection services)
         {
-            Bot.GetBotClientAsync();
             string connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<WordContext>(options => options.UseSqlServer(connection));
+            DependenciesRoot.InjectDependencies(services, connection);
+            
+             //services.AddDbContext<ServiceModule>(options => options.UseSqlServer(connection));
+            //TODO: learn about DI 
+
+
+            //add unit of work           
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IWordsService wordsService)
         {
             if (env.IsDevelopment())
             {
@@ -46,9 +54,10 @@ namespace WordsLearningApp.WEB
             }
             app.UseStaticFiles();
 
-           
+            Bot.GetBotClientAsync(wordsService);
 
-          
+
+
         }
     }
 }

@@ -7,6 +7,7 @@ using WordsLearningApp.WEB.Models.Commands;
 using WordsLearningApp.WEB;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types;
+using WordsLearningApp.BLL.Interfaces;
 
 namespace WordsLearningApp.WEB.Models
 {
@@ -16,15 +17,14 @@ namespace WordsLearningApp.WEB.Models
         private static TelegramBotClient botClient;
         private static List<Command> commandsList;
         public static IReadOnlyList<Command> Commands { get { return commandsList.AsReadOnly(); } }
-        public static TelegramBotClient GetBotClientAsync()
+        public static TelegramBotClient GetBotClientAsync(IWordsService wordsService)
         {
             if (botClient != null)
             {
                 return botClient;
             }
             commandsList = new List<Command>();
-            commandsList.Add(new StartCommand());
-            commandsList.Add(new HelloComand());
+            commandsList.Add(new HelloComand(wordsService));
 
             botClient = new TelegramBotClient(BotSettings.Key);
             botClient.OnMessage += OnMessage;

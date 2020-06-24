@@ -5,7 +5,7 @@ using WordsLearningApp.DAL.Models;
 
 namespace WordsLearningApp.DAL.Interfaces
 {
-    interface IUntiOfWork
+    public interface IUntiOfWork
     {
         IRepository<Word> Words { get; }
         IRepository<User> Users { get; }
