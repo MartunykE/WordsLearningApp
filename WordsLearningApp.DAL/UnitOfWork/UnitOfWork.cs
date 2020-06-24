@@ -10,7 +10,7 @@ namespace WordsLearningApp.DAL.UnitOfWork
 {
     public class UnitOfWork : IUntiOfWork
     {
-        WordContext context;
+        WordContext db;
         WordRepository wordRepository;
         UserRepository userRepository;
         public IRepository<Word> Words 
@@ -19,7 +19,7 @@ namespace WordsLearningApp.DAL.UnitOfWork
             {
                 if (wordRepository == null)
                 {
-                    wordRepository = new WordRepository(context);
+                    wordRepository = new WordRepository(db);
                 }
                 return wordRepository;
             } 
@@ -31,7 +31,7 @@ namespace WordsLearningApp.DAL.UnitOfWork
             {
                 if (userRepository == null)
                 {
-                    userRepository = new UserRepository(context);
+                    userRepository = new UserRepository(db);
                 }
                 return userRepository;
             }
@@ -39,11 +39,11 @@ namespace WordsLearningApp.DAL.UnitOfWork
 
         public UnitOfWork(DbContextOptions<WordContext> options)
         {
-            context = new WordContext(options);
+            db = new WordContext(options);
         }
-        public void Save()
+        public async void Save()
         {
-            throw new NotImplementedException();
+           await db.SaveChangesAsync();
         }
     }
 }

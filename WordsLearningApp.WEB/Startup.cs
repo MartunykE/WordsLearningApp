@@ -30,12 +30,6 @@ namespace WordsLearningApp.WEB
         {
             string connection = Configuration.GetConnectionString("DefaultConnection");
             DependenciesRoot.InjectDependencies(services, connection);
-            
-             //services.AddDbContext<ServiceModule>(options => options.UseSqlServer(connection));
-            //TODO: learn about DI 
-
-
-            //add unit of work           
 
         }
 

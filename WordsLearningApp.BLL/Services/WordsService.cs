@@ -5,6 +5,7 @@ using WordsLearningApp.BLL.DTO;
 using WordsLearningApp.BLL.Interfaces;
 using WordsLearningApp.BLL.BussinesModels;
 using WordsLearningApp.DAL.Interfaces;
+using WordsLearningApp.DAL.Models;
 namespace WordsLearningApp.BLL.Services
 {
     public class WordsService : IWordsService
@@ -20,9 +21,17 @@ namespace WordsLearningApp.BLL.Services
             throw new NotImplementedException();
         }
 
-        public void CreateWord(WordDTO word)
+        public void CreateWord(WordDTO wordDTO)
         {
-            throw new NotImplementedException();
+            Word word = new Word()
+            {
+                Name = wordDTO.Name
+            };
+            db.Words.Create(word);
+
+            //TODO: Add condition for save
+            db.Save();
+
         }
 
         public void DeleteWord(int id)

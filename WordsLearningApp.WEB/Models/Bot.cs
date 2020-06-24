@@ -25,6 +25,7 @@ namespace WordsLearningApp.WEB.Models
             }
             commandsList = new List<Command>();
             commandsList.Add(new HelloComand(wordsService));
+            commandsList.Add(new CreateWordCommand(wordsService));
 
             botClient = new TelegramBotClient(BotSettings.Key);
             botClient.OnMessage += OnMessage;
