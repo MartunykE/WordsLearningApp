@@ -18,7 +18,7 @@ namespace WordsLearningApp.WEB.Models.Commands
             this.wordsService = wordsService;
         }
 
-        public override string Name => "/CreateWord";
+        public override string Name => "/createWord";
 
 
         public async override Task Execute(Message message, TelegramBotClient telegramBotClient)

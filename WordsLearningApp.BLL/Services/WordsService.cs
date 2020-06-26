@@ -6,14 +6,21 @@ using WordsLearningApp.BLL.Interfaces;
 using WordsLearningApp.BLL.BussinesModels;
 using WordsLearningApp.DAL.Interfaces;
 using WordsLearningApp.DAL.Models;
+using System.Linq;
+using System.Timers;
+
 namespace WordsLearningApp.BLL.Services
 {
     public class WordsService : IWordsService
     {
         IUntiOfWork db { get; set; }
+        Timer timer;
 
         public WordsService(IUntiOfWork untiOfWork)
         {
+            double a = 5;
+            timer = new Timer();
+            
             db = untiOfWork;
         }
         public void ChangeShowFrequency(ShowFrequency showFrequencyLevel)
@@ -36,17 +43,39 @@ namespace WordsLearningApp.BLL.Services
 
         public void DeleteWord(int id)
         {
-            throw new NotImplementedException();
+            db.Words.Delete(id);
+            db.Save();
         }
 
-        public void EditWord(WordDTO word)
+        public void EditWord(WordDTO wordDTO)
         {
-            throw new NotImplementedException();
+
+            //Think about automapper
+            Word word = db.Words.Find(w=> w.Id == wordDTO.Id).SingleOrDefault();
+            word.Name = wordDTO.Name;
+            db.Words.Update(word);
+            db.Save();
         }
 
         public WordDTO GetWord(int id)
         {
-            throw new NotImplementedException();
+            WordDTO wordDTO = new WordDTO();
+            Word word = db.Words.Find(w=> w.Id == wordDTO.Id).SingleOrDefault();
+            wordDTO.Id = word.Id;
+            wordDTO.Name = word.Name;
+            return wordDTO;
         }
+        
+        //on reply send definition
+        
+        public WordDTO SendMessage()
+        {
+            //DateTime.Now. 
+
+
+            return GetWord(1);
+        }
+
+        //TODO: Add method for sending word in schedule (Timer)
     }
 }

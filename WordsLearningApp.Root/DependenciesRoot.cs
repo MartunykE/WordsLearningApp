@@ -18,6 +18,7 @@ namespace WordsLearningApp.Root
             services.AddDbContext<WordContext>(options => options.UseSqlServer(connection));
             services.AddScoped<IUntiOfWork, UnitOfWork>();
             services.AddTransient<IWordsService, WordsService>();
+            services.AddTransient<IUserService, UserService>();
 
         }
     }

@@ -8,6 +8,7 @@ using WordsLearningApp.WEB;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types;
 using WordsLearningApp.BLL.Interfaces;
+using WordsLearningApp.DAL.Models;
 
 namespace WordsLearningApp.WEB.Models
 {
@@ -17,15 +18,14 @@ namespace WordsLearningApp.WEB.Models
         private static TelegramBotClient botClient;
         private static List<Command> commandsList;
         public static IReadOnlyList<Command> Commands { get { return commandsList.AsReadOnly(); } }
-        public static TelegramBotClient GetBotClientAsync(IWordsService wordsService)
+        public static TelegramBotClient GetBotClientAsync(IWordsService wordsService, IUserService userService)
         {
             if (botClient != null)
             {
                 return botClient;
             }
-            commandsList = new List<Command>();
-            commandsList.Add(new HelloComand(wordsService));
-            commandsList.Add(new CreateWordCommand(wordsService));
+
+            ConfigureCommands(userService, wordsService);
 
             botClient = new TelegramBotClient(BotSettings.Key);
             botClient.OnMessage += OnMessage;
@@ -42,13 +42,13 @@ namespace WordsLearningApp.WEB.Models
                 return;
             }
             ExecuteCommand(message);
-            await botClient.SendTextMessageAsync(
-                chatId: args.Message.Chat.Id,
-                text: $"Hello from bot{++a}"
-                );
+            //await botClient.SendTextMessageAsync(
+            //    chatId: args.Message.Chat.Id,
+            //    text: $"Hello from bot{++a}"
+            //    );
         }
 
-        private  static void ExecuteCommand(Message message)
+        private static void ExecuteCommand(Message message)
         {
             foreach (var command in commandsList)
             {
@@ -58,6 +58,14 @@ namespace WordsLearningApp.WEB.Models
                     break;
                 }
             }
+        }
+
+        private static void ConfigureCommands(IUserService userService, IWordsService wordsService)
+        {
+            commandsList = new List<Command>();
+            commandsList.Add(new HelloComand(wordsService));
+            commandsList.Add(new CreateWordCommand(wordsService));
+            commandsList.Add(new StartCommand(userService));
         }
     }
 }
