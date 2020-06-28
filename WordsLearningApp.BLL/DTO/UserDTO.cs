@@ -1,4 +1,5 @@
 ﻿using WordsLearningApp.BLL.BussinesModels;
+using System;
 
 namespace WordsLearningApp.BLL.DTO
 {
@@ -9,7 +10,10 @@ namespace WordsLearningApp.BLL.DTO
         public string Name { get; set; }
         public ShowFrequency ShowFrequency { get; set; }
         public int WordId { get; set; }
+
+        public DateTime ShowWordTime { get; set; }
+
     }
 
-   
+
 }

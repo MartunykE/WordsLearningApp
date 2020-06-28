@@ -15,7 +15,7 @@ namespace WordsLearningApp.BLL.Services
     {
         IUntiOfWork db { get; set; }
         Timer timer;
-
+        //TODO:method for initializing timer. event if schedule was updated
         public WordsService(IUntiOfWork untiOfWork)
         {
             double a = 5;
@@ -49,7 +49,6 @@ namespace WordsLearningApp.BLL.Services
 
         public void EditWord(WordDTO wordDTO)
         {
-
             //Think about automapper
             Word word = db.Words.Find(w=> w.Id == wordDTO.Id).SingleOrDefault();
             word.Name = wordDTO.Name;

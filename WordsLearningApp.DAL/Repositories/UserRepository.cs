@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using WordsLearningApp.DAL.EF;
@@ -33,7 +34,9 @@ namespace WordsLearningApp.DAL.Repositories
 
         public IEnumerable<User> Find(Func<User, bool> predicate)
         {
-            return db.Users.Include(p => p.Id).Where(predicate).ToList();
+            var a = db.Users.Where(predicate).ToList();
+            Debug.WriteLine(a.ToList().First());
+            return a;
         }
 
         public User Get(int id)

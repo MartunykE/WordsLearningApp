@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using WordsLearningApp.BLL.DTO;
 using WordsLearningApp.BLL.Interfaces;
@@ -33,12 +34,36 @@ namespace WordsLearningApp.BLL.Services
 
         public void EditUser(UserDTO userDTO)
         {
-            throw new NotImplementedException();
+            User user = db.Users.Find(p => p.ChatId == userDTO.ChatId).FirstOrDefault();
+            user.Name = userDTO.Name;
+            if (user.ShowWordSchedule == null)
+            {
+                user.ShowWordSchedule = new List<Schedule>();
+            }
+
+            user.ShowWordSchedule.Add(new Schedule { Time = userDTO.ShowWordTime });
+            db.Users.Update(user);
+            db.Save();
         }
 
         public UserDTO GetUser(int id)
         {
             throw new NotImplementedException();
         }
+
+        //public void SetWordShowTime(DateTime time, long chatId)
+        //{
+        //    User user = db.Users.Find(p => p.ChatId == chatId).FirstOrDefault();
+        //    if (user.ShowWordSchedule == null)
+        //    {
+        //        user.ShowWordSchedule = new List<Schedule>();
+        //    }
+
+        //    user.ShowWordSchedule.Add(new Schedule { Time = time}) ;
+        //    db.Users.Update(user);
+        //    db.Save();
+        //}
+
+        
     }
 }

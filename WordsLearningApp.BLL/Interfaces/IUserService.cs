@@ -12,5 +12,6 @@ namespace WordsLearningApp.BLL.Interfaces
         public void EditUser(UserDTO userDTO);
         public UserDTO GetUser(int id);
         public void DeleteUser(int id);
+        //public void SetWordShowTime(DateTime time, long chatId);
     }
 }

@@ -10,8 +10,12 @@ namespace WordsLearningApp.DAL.Models
         public long ChatId { get; set; }
 
         public string Name { get; set; }
-        public IEnumerable<Word> CommonWords { get; set; }
-        public IEnumerable<Word> OftenWords { get; set; }
-        public IEnumerable<Word> RareWords { get; set; }
+
+       // public DateTime ShowWordSchedule { get; set; }
+        public ICollection<Schedule> ShowWordSchedule { get; set; }
+
+        public ICollection<Word> CommonWords { get; set; }
+        public ICollection<Word> OftenWords { get; set; }
+        public ICollection<Word> RareWords { get; set; }
     }
 }

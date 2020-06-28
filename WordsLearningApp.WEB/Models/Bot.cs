@@ -14,7 +14,6 @@ namespace WordsLearningApp.WEB.Models
 {
     public class Bot
     {
-        static int a = 5;
         private static TelegramBotClient botClient;
         private static List<Command> commandsList;
         public static IReadOnlyList<Command> Commands { get { return commandsList.AsReadOnly(); } }
@@ -66,6 +65,7 @@ namespace WordsLearningApp.WEB.Models
             commandsList.Add(new HelloComand(wordsService));
             commandsList.Add(new CreateWordCommand(wordsService));
             commandsList.Add(new StartCommand(userService));
+            commandsList.Add(new SetShowTimeCommand(userService));
         }
     }
 }
