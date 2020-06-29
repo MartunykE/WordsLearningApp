@@ -9,6 +9,12 @@ using Telegram.Bot.Args;
 using Telegram.Bot.Types;
 using WordsLearningApp.BLL.Interfaces;
 using WordsLearningApp.DAL.Models;
+using AutoMapper;
+using System.Timers;
+using WordsLearningApp.BLL.DTO;
+
+//delete
+using WordsLearningApp.BLL.Services;
 
 namespace WordsLearningApp.WEB.Models
 {
@@ -16,15 +22,18 @@ namespace WordsLearningApp.WEB.Models
     {
         private static TelegramBotClient botClient;
         private static List<Command> commandsList;
+        private static WordsService wordsService2;
         public static IReadOnlyList<Command> Commands { get { return commandsList.AsReadOnly(); } }
-        public static TelegramBotClient GetBotClientAsync(IWordsService wordsService, IUserService userService)
+        public static TelegramBotClient GetBotClientAsync(IWordsService wordsService, IUserService userService, IMapper mapper)
         {
             if (botClient != null)
             {
                 return botClient;
             }
 
-            ConfigureCommands(userService, wordsService);
+            ConfigureCommands(userService, wordsService, mapper);
+            wordsService2 = (WordsService)wordsService;
+            //wordsService.Timer.Elapsed += new ElapsedEventHandler(SendMessage);
 
             botClient = new TelegramBotClient(BotSettings.Key);
             botClient.OnMessage += OnMessage;
@@ -59,13 +68,19 @@ namespace WordsLearningApp.WEB.Models
             }
         }
 
-        private static void ConfigureCommands(IUserService userService, IWordsService wordsService)
+        private static void SendMessage(object sender, ElapsedEventArgs e)
+        {
+            WordDTO wordDTO = wordsService2.InitializeTimer();
+            botClient.SendTextMessageAsync(444601783, wordDTO.Name);
+        }
+
+        private static void ConfigureCommands(IUserService userService, IWordsService wordsService, IMapper mapper)
         {
             commandsList = new List<Command>();
             commandsList.Add(new HelloComand(wordsService));
             commandsList.Add(new CreateWordCommand(wordsService));
             commandsList.Add(new StartCommand(userService));
-            commandsList.Add(new SetShowTimeCommand(userService));
+            commandsList.Add(new SetShowTimeCommand(userService, mapper));
         }
     }
 }

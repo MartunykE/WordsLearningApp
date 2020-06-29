@@ -11,8 +11,9 @@ namespace WordsLearningApp.DAL.Models
 
         public string Name { get; set; }
 
-       // public DateTime ShowWordSchedule { get; set; }
-        public ICollection<Schedule> ShowWordSchedule { get; set; }
+        public DateTime StartSendWordsTime { get; set; }
+        public DateTime FinishSendWordsTime { get; set; }
+        //public ICollection<Schedule> ShowWordSchedule { get; set; }
 
         public ICollection<Word> CommonWords { get; set; }
         public ICollection<Word> OftenWords { get; set; }

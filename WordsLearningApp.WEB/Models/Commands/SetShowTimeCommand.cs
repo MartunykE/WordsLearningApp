@@ -7,34 +7,64 @@ using Telegram.Bot;
 using Telegram.Bot.Types;
 using WordsLearningApp.BLL.Interfaces;
 using WordsLearningApp.BLL.DTO;
+using AutoMapper;
 
 namespace WordsLearningApp.WEB.Models.Commands
 {
     public class SetShowTimeCommand : Command
     {
         IUserService userService;
-        public SetShowTimeCommand(IUserService userService)
+        IMapper mapper;
+        List<string> commandNames;
+        public SetShowTimeCommand(IUserService userService, IMapper mapper)
         {
             this.userService = userService;
+            this.mapper = mapper;
+            commandNames = new List<string>();
+            commandNames.Add("StartShowTime");
+            commandNames.Add("FinishShowTime");
         }
 
-        public override string Name => "/SetShowTime";
+        public override string Name => commandNames.FirstOrDefault();
+
+
+        public override bool Contains(Message message)
+        {
+            if (message.Type != Telegram.Bot.Types.Enums.MessageType.Text)
+            {
+                return false;
+            }
+
+            foreach (var name in commandNames)
+            {
+                if (message.Text.Contains(name))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+            
+        }
 
         public async override Task Execute(Message message, TelegramBotClient telegramBotClient)
         {
-            string timePattern = "([0-2]?[0-9]):[0-5][0-9]:[0-5][0-9]";
-            string timeString = message.Text.Substring(message.Text.IndexOf(" "));
-            DateTime showTime;
-            if (Regex.IsMatch(timeString, timePattern))
+            DateTime showTime = message.Date;
+            if (showTime != null)
             {
-                showTime = DateTime.Parse(timeString);
-
                 UserDTO userDTO = new UserDTO()
                 {
                     ChatId = message.Chat.Id,
                     Name = message.Chat.Username,
-                    ShowWordTime = showTime
                 };
+                if (message.Text.Contains("/StartShowTime"))
+                {
+                    userDTO.StartSendWordTime = showTime;
+                }
+                else
+                {
+                    userDTO.FinishSendWordTime = showTime;
+                }                
 
                 userService.EditUser(userDTO);
                 

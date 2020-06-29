@@ -36,12 +36,14 @@ namespace WordsLearningApp.BLL.Services
         {
             User user = db.Users.Find(p => p.ChatId == userDTO.ChatId).FirstOrDefault();
             user.Name = userDTO.Name;
-            if (user.ShowWordSchedule == null)
+            if (userDTO.StartSendWordTime != null)
             {
-                user.ShowWordSchedule = new List<Schedule>();
+                user.StartSendWordsTime = userDTO.StartSendWordTime;
             }
-
-            user.ShowWordSchedule.Add(new Schedule { Time = userDTO.ShowWordTime });
+            if (userDTO.FinishSendWordTime != null)
+            {
+                user.FinishSendWordsTime = userDTO.FinishSendWordTime;
+            }
             db.Users.Update(user);
             db.Save();
         }
@@ -50,6 +52,14 @@ namespace WordsLearningApp.BLL.Services
         {
             throw new NotImplementedException();
         }
+
+       
+      
+
+
+
+
+
 
         //public void SetWordShowTime(DateTime time, long chatId)
         //{

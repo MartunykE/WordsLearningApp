@@ -46,7 +46,8 @@ namespace WordsLearningApp.DAL.Repositories
 
         public IEnumerable<User> GetAll()
         {
-            return db.Users.ToList();
+            IEnumerable<User> users = db.Users;
+            return users;
         }
 
         public void Update(User item)

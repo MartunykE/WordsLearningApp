@@ -14,6 +14,7 @@ using WordsLearningApp.BLL.Interfaces;
 using WordsLearningApp.BLL.Services;
 using WordsLearningApp.Root;
 using WordsLearningApp.DAL.Interfaces;
+using AutoMapper;
 
 namespace WordsLearningApp.WEB
 {
@@ -30,11 +31,12 @@ namespace WordsLearningApp.WEB
         {
             string connection = Configuration.GetConnectionString("DefaultConnection");
             DependenciesRoot.InjectDependencies(services, connection);
+            services.AddAutoMapper(typeof(Startup));
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IWordsService wordsService, IUserService userService)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IWordsService wordsService, IUserService userService, IMapper mapper)
         {
             if (env.IsDevelopment())
             {
@@ -43,7 +45,7 @@ namespace WordsLearningApp.WEB
            
             app.UseStaticFiles();
 
-            Bot.GetBotClientAsync(wordsService, userService);
+            Bot.GetBotClientAsync(wordsService, userService, mapper);
 
 
 

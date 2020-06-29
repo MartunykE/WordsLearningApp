@@ -8,20 +8,25 @@ using WordsLearningApp.DAL.Interfaces;
 using WordsLearningApp.DAL.Models;
 using System.Linq;
 using System.Timers;
+using System.Diagnostics;
 
 namespace WordsLearningApp.BLL.Services
 {
     public class WordsService : IWordsService
     {
         IUntiOfWork db { get; set; }
-        Timer timer;
+         Timer timer;
+
+        public Timer Timer { get { return timer; } }
         //TODO:method for initializing timer. event if schedule was updated
         public WordsService(IUntiOfWork untiOfWork)
         {
-            double a = 5;
-            timer = new Timer();
-            
             db = untiOfWork;
+
+
+            timer = new Timer(300);
+            InitializeTimer();
+
         }
         public void ChangeShowFrequency(ShowFrequency showFrequencyLevel)
         {
@@ -66,6 +71,23 @@ namespace WordsLearningApp.BLL.Services
         }
         
         //on reply send definition
+        public WordDTO InitializeTimer()
+        {
+            //think about comparer or own sort 
+            var usersList = db.Users.GetAll().ToList();
+            //User user = usersList.Where(p => p.ShowWordSchedule == p.ShowWordSchedule.Min()).Min();
+            //foreach (var user2 in usersList)
+            //{
+            //   var messageTime = user2.ShowWordSchedule.Min();
+            //}
+            //Debug.WriteLine("000");
+
+            timer.Interval = 300;
+            WordDTO wordDTO = new WordDTO();
+            wordDTO.Name = "INIT timer";
+            timer.Start();
+            return wordDTO;
+        }
         
         public WordDTO SendMessage()
         {

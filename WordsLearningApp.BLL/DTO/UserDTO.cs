@@ -11,7 +11,8 @@ namespace WordsLearningApp.BLL.DTO
         public ShowFrequency ShowFrequency { get; set; }
         public int WordId { get; set; }
 
-        public DateTime ShowWordTime { get; set; }
+        public DateTime StartSendWordTime { get; set; }
+        public DateTime FinishSendWordTime { get; set; }
 
     }
 
