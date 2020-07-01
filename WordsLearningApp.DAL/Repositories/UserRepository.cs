@@ -34,8 +34,7 @@ namespace WordsLearningApp.DAL.Repositories
 
         public IEnumerable<User> Find(Func<User, bool> predicate)
         {
-            var a = db.Users.Where(predicate).ToList();
-            Debug.WriteLine(a.ToList().First());
+            var a = db.Users.Include(p => p.CommonUserWords).Where(predicate).ToList();
             return a;
         }
 

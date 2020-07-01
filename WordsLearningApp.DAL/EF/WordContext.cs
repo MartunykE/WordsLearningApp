@@ -15,6 +15,15 @@ namespace WordsLearningApp.DAL.EF
             Database.EnsureCreated();
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<UsersWords>().HasKey(p => new { p.WordId, p.UserId });
+            modelBuilder.Entity<UsersWords>().HasOne(uw => uw.User).WithMany(p => p.CommonUserWords).HasForeignKey(p => p.UserId);
+            modelBuilder.Entity<UsersWords>().HasOne(uw => uw.Word).WithMany(p => p.UserWords).HasForeignKey(w => w.WordId);
+            //modelBuilder.Entity<UsersWords>().HasOne(uw => uw.User).WithMany(p => p.RareWords).HasForeignKey(p => p.UserId);
+            //modelBuilder.Entity<UsersWords>().HasOne(uw => uw.User).WithMany(p => p.OftenWords).HasForeignKey(p => p.UserId);
+        }
+
         public DbSet<Word> Words { get; set; }
         public DbSet<User> Users { get; set; }
 

@@ -15,17 +15,20 @@ namespace WordsLearningApp.BLL.Services
     public class WordsService : IWordsService
     {
         IUntiOfWork db { get; set; }
-         Timer timer;
 
+        List<User> scheduledUsers;
+        Timer timer;
         public Timer Timer { get { return timer; } }
         //TODO:method for initializing timer. event if schedule was updated
         public WordsService(IUntiOfWork untiOfWork)
         {
             db = untiOfWork;
+            scheduledUsers = new List<User>();
 
-
-            timer = new Timer(300);
-            InitializeTimer();
+            //10 sec
+            timer = new Timer(10000);
+            timer.Elapsed += new ElapsedEventHandler(GetScheduledUsers);
+           // timer.Start();
 
         }
         public void ChangeShowFrequency(ShowFrequency showFrequencyLevel)
@@ -35,12 +38,26 @@ namespace WordsLearningApp.BLL.Services
 
         public void CreateWord(WordDTO wordDTO)
         {
-            Word word = new Word()
+            Word word = null;
+            try
             {
-                Name = wordDTO.Name
-            };
-            db.Words.Create(word);
+                word = db.Words.Find(p => p.Name == wordDTO.Name).FirstOrDefault();
 
+            }
+            catch
+            {
+
+            }
+            User user = db.Users.Find(p => p.ChatId == wordDTO.UserChatId).FirstOrDefault();
+            if (word == null)
+            {
+                word = new Word();
+                word.Name = wordDTO.Name;
+                db.Words.Create(word);
+                word.UserWords.Add(new UsersWords { User = user, Word = word });
+                //word.UserWords.Add(new UsersWords { UserId = user.Id, WordId = word.Id });
+                
+            }       
             //TODO: Add condition for save
             db.Save();
 
@@ -71,30 +88,29 @@ namespace WordsLearningApp.BLL.Services
         }
         
         //on reply send definition
-        public WordDTO InitializeTimer()
+        private void GetScheduledUsers(object sender, ElapsedEventArgs e)
         {
-            //think about comparer or own sort 
-            var usersList = db.Users.GetAll().ToList();
-            //User user = usersList.Where(p => p.ShowWordSchedule == p.ShowWordSchedule.Min()).Min();
-            //foreach (var user2 in usersList)
-            //{
-            //   var messageTime = user2.ShowWordSchedule.Min();
-            //}
-            //Debug.WriteLine("000");
-
-            timer.Interval = 300;
-            WordDTO wordDTO = new WordDTO();
-            wordDTO.Name = "INIT timer";
-            timer.Start();
-            return wordDTO;
+            scheduledUsers = db.Users.Find( user => 
+                user.StartSendWordsTime.TimeOfDay > DateTime.Now.TimeOfDay &&
+                user.FinishSendWordsTime.TimeOfDay < DateTime.Now.TimeOfDay).ToList();
         }
         
-        public WordDTO SendMessage()
+        public List<SendMessagePackage> SendMessage()
         {
-            //DateTime.Now. 
+            var sendMessagePackages = new List<SendMessagePackage>();
+
+            foreach (var user in scheduledUsers)
+            {
+                WordDTO wordDTO = new WordDTO();
+
+                //TODO add logic for select words 
+                //wordDTO.Name = user.CommonWords.FirstOrDefault().Name;
+
+                SendMessagePackage sendMessagePackage = new SendMessagePackage(user.ChatId, wordDTO.Name);
+            }
 
 
-            return GetWord(1);
+            return sendMessagePackages;
         }
 
         //TODO: Add method for sending word in schedule (Timer)

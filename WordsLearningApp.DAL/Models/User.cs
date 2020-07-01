@@ -6,6 +6,13 @@ namespace WordsLearningApp.DAL.Models
 {
    public class User
     {
+
+        public User()
+        {
+            CommonUserWords = new List<UsersWords>();
+            OftenUserWords = new List<UsersWords>();
+            RareUserWords = new List<UsersWords>();
+        }
         public int Id { get; set; }
         public long ChatId { get; set; }
 
@@ -15,8 +22,8 @@ namespace WordsLearningApp.DAL.Models
         public DateTime FinishSendWordsTime { get; set; }
         //public ICollection<Schedule> ShowWordSchedule { get; set; }
 
-        public ICollection<Word> CommonWords { get; set; }
-        public ICollection<Word> OftenWords { get; set; }
-        public ICollection<Word> RareWords { get; set; }
+        public ICollection<UsersWords> CommonUserWords { get; set; }
+        public ICollection<UsersWords> OftenUserWords { get; set; }
+        public ICollection<UsersWords> RareUserWords { get; set; }
     }
 }

@@ -27,6 +27,7 @@ namespace WordsLearningApp.WEB.Models.Commands
             string wordName = message.Text.Substring(message.Text.IndexOf(" ") + 1);            
             WordDTO wordDTO = new WordDTO();
             wordDTO.Name = wordName;
+            wordDTO.UserChatId = message.Chat.Id;
             wordsService.CreateWord(wordDTO);
             await telegramBotClient.SendTextMessageAsync(chatId, "word created");
         }

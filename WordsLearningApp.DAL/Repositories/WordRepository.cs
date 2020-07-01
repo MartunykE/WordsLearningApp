@@ -31,7 +31,7 @@ namespace WordsLearningApp.DAL.Repositories
         public IEnumerable<Word> Find(Func<Word, bool> predicate)
         {
             //look at collection users
-            return db.Words.Include(p => p.Id).Where(predicate).ToList();
+            return db.Words.Include(p => p.UserWords).Where(predicate).ToList();
         }
 
         public Word Get(int id)

@@ -44,14 +44,19 @@ namespace WordsLearningApp.WEB.Models.Commands
             }
 
             return false;
-            
+
         }
 
         public async override Task Execute(Message message, TelegramBotClient telegramBotClient)
         {
-            DateTime showTime = message.Date;
-            if (showTime != null)
+
+            string timePattern = "([0-2]?[0-9]):[0-5][0-9]:[0-5][0-9]";
+            string timeString = message.Text.Substring(message.Text.IndexOf(" "));
+            DateTime showTime;
+            if (Regex.IsMatch(timeString, timePattern))
             {
+                showTime = DateTime.Parse(timeString);
+
                 UserDTO userDTO = new UserDTO()
                 {
                     ChatId = message.Chat.Id,
@@ -64,10 +69,10 @@ namespace WordsLearningApp.WEB.Models.Commands
                 else
                 {
                     userDTO.FinishSendWordTime = showTime;
-                }                
+                }
 
                 userService.EditUser(userDTO);
-                
+
                 await telegramBotClient.SendTextMessageAsync(message.Chat.Id, "Time has been set ");
             }
             else

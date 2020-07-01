@@ -33,7 +33,7 @@ namespace WordsLearningApp.WEB.Models
 
             ConfigureCommands(userService, wordsService, mapper);
             wordsService2 = (WordsService)wordsService;
-            //wordsService.Timer.Elapsed += new ElapsedEventHandler(SendMessage);
+            wordsService.Timer.Elapsed += new ElapsedEventHandler(SendMessage);
 
             botClient = new TelegramBotClient(BotSettings.Key);
             botClient.OnMessage += OnMessage;
@@ -70,8 +70,11 @@ namespace WordsLearningApp.WEB.Models
 
         private static void SendMessage(object sender, ElapsedEventArgs e)
         {
-            WordDTO wordDTO = wordsService2.InitializeTimer();
-            botClient.SendTextMessageAsync(444601783, wordDTO.Name);
+            var messagePackages = wordsService2.SendMessage();
+            foreach (var message in messagePackages)
+            {
+                 botClient.SendTextMessageAsync(message.ChatId, message.Message);
+            }
         }
 
         private static void ConfigureCommands(IUserService userService, IWordsService wordsService, IMapper mapper)
