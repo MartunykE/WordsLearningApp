@@ -1,6 +1,7 @@
 ﻿using WordsLearningApp.BLL.DTO;
 using WordsLearningApp.BLL.BussinesModels;
 using System.Timers;
+using System.Collections.Generic;
 
 namespace WordsLearningApp.BLL.Interfaces
 {
@@ -15,6 +16,7 @@ namespace WordsLearningApp.BLL.Interfaces
         public WordDTO GetWord(int id);
         public void DeleteWord(int id);
         public void ChangeShowFrequency(ShowFrequency showFrequencyLevel);
+        public List<SendMessagePackage> GetSendMessagePackages();
 
     }
 }

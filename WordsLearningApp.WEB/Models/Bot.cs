@@ -15,6 +15,8 @@ using WordsLearningApp.BLL.DTO;
 
 //delete
 using WordsLearningApp.BLL.Services;
+using Microsoft.AspNetCore.DataProtection;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace WordsLearningApp.WEB.Models
 {
@@ -22,21 +24,21 @@ namespace WordsLearningApp.WEB.Models
     {
         private static TelegramBotClient botClient;
         private static List<Command> commandsList;
-        private static WordsService wordsService2;
         public static IReadOnlyList<Command> Commands { get { return commandsList.AsReadOnly(); } }
-        public static TelegramBotClient GetBotClientAsync(IWordsService wordsService, IUserService userService, IMapper mapper)
+        public static TelegramBotClient GetBotClientAsync(IWordsService wordsService, IUserService userService, IMapper mapper, ILanguageDictionary languageDictionary)
         {
             if (botClient != null)
             {
                 return botClient;
             }
 
-            ConfigureCommands(userService, wordsService, mapper);
-            wordsService2 = (WordsService)wordsService;
-            wordsService.Timer.Elapsed += new ElapsedEventHandler(SendMessage);
+            ConfigureCommands(userService, wordsService, mapper, languageDictionary);
+            wordsService.Timer.Elapsed += new ElapsedEventHandler((sender, args) => SendMessage(wordsService));
 
             botClient = new TelegramBotClient(BotSettings.Key);
             botClient.OnMessage += OnMessage;
+            botClient.OnCallbackQuery += OnCallbackQuery;
+
             botClient.StartReceiving();
 
             return botClient;
@@ -44,16 +46,25 @@ namespace WordsLearningApp.WEB.Models
 
         private static async void OnMessage(object sender, MessageEventArgs args)
         {
-            var message =  args?.Message;
+            var message = args?.Message; 
             if (message == null)
             {
                 return;
             }
             ExecuteCommand(message);
-            //await botClient.SendTextMessageAsync(
-            //    chatId: args.Message.Chat.Id,
-            //    text: $"Hello from bot{++a}"
-            //    );
+
+        }        
+
+        private static void OnCallbackQuery(object sender, CallbackQueryEventArgs args)
+        {
+            string data = args.CallbackQuery.Data;
+            if (data == null)
+            {
+                return;
+            }
+            Message message = args.CallbackQuery.Message;
+            message.Text = data;
+            ExecuteCommand(message);
         }
 
         private static void ExecuteCommand(Message message)
@@ -68,22 +79,25 @@ namespace WordsLearningApp.WEB.Models
             }
         }
 
-        private static void SendMessage(object sender, ElapsedEventArgs e)
+        private static async void SendMessage(IWordsService wordsService)
         {
-            var messagePackages = wordsService2.SendMessage();
+            var messagePackages = wordsService.GetSendMessagePackages();
             foreach (var message in messagePackages)
             {
-                 botClient.SendTextMessageAsync(message.ChatId, message.Message);
+                InlineKeyboardButton button = new InlineKeyboardButton() { Text = "Get Definition", CallbackData = $"/getDefinition {message.Message}" };
+                InlineKeyboardMarkup markup = new InlineKeyboardMarkup(button);
+                await botClient.SendTextMessageAsync(message.ChatId, message.Message, replyMarkup: markup);
             }
         }
 
-        private static void ConfigureCommands(IUserService userService, IWordsService wordsService, IMapper mapper)
+        private static void ConfigureCommands(IUserService userService, IWordsService wordsService, IMapper mapper, ILanguageDictionary languageDictionary)
         {
             commandsList = new List<Command>();
             commandsList.Add(new HelloComand(wordsService));
             commandsList.Add(new CreateWordCommand(wordsService));
             commandsList.Add(new StartCommand(userService));
             commandsList.Add(new SetShowTimeCommand(userService, mapper));
+            commandsList.Add(new GetDefinitionCommand(languageDictionary));
         }
     }
 }

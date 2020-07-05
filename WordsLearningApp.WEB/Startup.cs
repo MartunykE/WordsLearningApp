@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using WordsLearningApp.WEB.Models;
 using WordsLearningApp.BLL.Interfaces;
 using WordsLearningApp.BLL.Services;
+using WordsLearningApp.BLL.DictionaryAPI;
 using WordsLearningApp.Root;
 using WordsLearningApp.DAL.Interfaces;
 using AutoMapper;
@@ -33,10 +34,11 @@ namespace WordsLearningApp.WEB
             DependenciesRoot.InjectDependencies(services, connection);
             services.AddAutoMapper(typeof(Startup));
 
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IWordsService wordsService, IUserService userService, IMapper mapper)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IWordsService wordsService, IUserService userService, IMapper mapper, ILanguageDictionary languageDictionary)
         {
             if (env.IsDevelopment())
             {
@@ -45,7 +47,7 @@ namespace WordsLearningApp.WEB
            
             app.UseStaticFiles();
 
-            Bot.GetBotClientAsync(wordsService, userService, mapper);
+            Bot.GetBotClientAsync(wordsService, userService, mapper, languageDictionary);
 
 
 

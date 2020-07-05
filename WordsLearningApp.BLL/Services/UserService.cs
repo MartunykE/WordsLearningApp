@@ -27,20 +27,23 @@ namespace WordsLearningApp.BLL.Services
             db.Save();
         }
 
-        public void DeleteUser(int id)
+        public void DeleteUser(int chatId)
         {
-            throw new NotImplementedException();
+            db.Users.Delete(chatId);
         }
 
         public void EditUser(UserDTO userDTO)
         {
             User user = db.Users.Find(p => p.ChatId == userDTO.ChatId).FirstOrDefault();
             user.Name = userDTO.Name;
-            if (userDTO.StartSendWordTime != null)
+
+            //change to nullable datetime
+            DateTime dateTime = default;
+            if (userDTO.StartSendWordTime != dateTime)
             {
                 user.StartSendWordsTime = userDTO.StartSendWordTime;
             }
-            if (userDTO.FinishSendWordTime != null)
+            if (userDTO.FinishSendWordTime != dateTime)
             {
                 user.FinishSendWordsTime = userDTO.FinishSendWordTime;
             }
@@ -52,28 +55,5 @@ namespace WordsLearningApp.BLL.Services
         {
             throw new NotImplementedException();
         }
-
-       
-      
-
-
-
-
-
-
-        //public void SetWordShowTime(DateTime time, long chatId)
-        //{
-        //    User user = db.Users.Find(p => p.ChatId == chatId).FirstOrDefault();
-        //    if (user.ShowWordSchedule == null)
-        //    {
-        //        user.ShowWordSchedule = new List<Schedule>();
-        //    }
-
-        //    user.ShowWordSchedule.Add(new Schedule { Time = time}) ;
-        //    db.Users.Update(user);
-        //    db.Save();
-        //}
-
-        
     }
 }

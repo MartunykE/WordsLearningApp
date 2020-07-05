@@ -28,7 +28,7 @@ namespace WordsLearningApp.BLL.Services
             //10 sec
             timer = new Timer(10000);
             timer.Elapsed += new ElapsedEventHandler(GetScheduledUsers);
-           // timer.Start();
+            timer.Start();
 
         }
         public void ChangeShowFrequency(ShowFrequency showFrequencyLevel)
@@ -55,7 +55,6 @@ namespace WordsLearningApp.BLL.Services
                 word.Name = wordDTO.Name;
                 db.Words.Create(word);
                 word.UserWords.Add(new UsersWords { User = user, Word = word });
-                //word.UserWords.Add(new UsersWords { UserId = user.Id, WordId = word.Id });
                 
             }       
             //TODO: Add condition for save
@@ -90,12 +89,13 @@ namespace WordsLearningApp.BLL.Services
         //on reply send definition
         private void GetScheduledUsers(object sender, ElapsedEventArgs e)
         {
-            scheduledUsers = db.Users.Find( user => 
-                user.StartSendWordsTime.TimeOfDay > DateTime.Now.TimeOfDay &&
-                user.FinishSendWordsTime.TimeOfDay < DateTime.Now.TimeOfDay).ToList();
+            scheduledUsers = db.Users.Find(user =>
+               user.StartSendWordsTime.TimeOfDay < DateTime.Now.TimeOfDay &&
+               user.FinishSendWordsTime.TimeOfDay > DateTime.Now.TimeOfDay).ToList();
+
         }
         
-        public List<SendMessagePackage> SendMessage()
+        public List<SendMessagePackage> GetSendMessagePackages()
         {
             var sendMessagePackages = new List<SendMessagePackage>();
 
@@ -104,9 +104,10 @@ namespace WordsLearningApp.BLL.Services
                 WordDTO wordDTO = new WordDTO();
 
                 //TODO add logic for select words 
-                //wordDTO.Name = user.CommonWords.FirstOrDefault().Name;
+                wordDTO.Name = user.CommonUserWords.FirstOrDefault().Word.Name;
 
                 SendMessagePackage sendMessagePackage = new SendMessagePackage(user.ChatId, wordDTO.Name);
+                sendMessagePackages.Add(sendMessagePackage);
             }
 
 

@@ -23,9 +23,9 @@ namespace WordsLearningApp.DAL.Repositories
             db.Users.Add(item);
         }
 
-        public void Delete(int id)
+        public void Delete(int chatId)
         {
-            User user = db.Users.Find(id);
+            User user = db.Users.Find(chatId);
             if (user != null)
             {
                 db.Users.Remove(user);
@@ -34,7 +34,7 @@ namespace WordsLearningApp.DAL.Repositories
 
         public IEnumerable<User> Find(Func<User, bool> predicate)
         {
-            var a = db.Users.Include(p => p.CommonUserWords).Where(predicate).ToList();
+            var a = db.Users.Include(p => p.CommonUserWords).ThenInclude(o=>o.Word).Where(predicate).ToList();
             return a;
         }
 
