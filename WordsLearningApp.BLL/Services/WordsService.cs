@@ -31,10 +31,6 @@ namespace WordsLearningApp.BLL.Services
             timer.Start();
 
         }
-        public void ChangeShowFrequency(ShowFrequency showFrequencyLevel)
-        {
-            throw new NotImplementedException();
-        }
 
         public void CreateWord(WordDTO wordDTO)
         {
@@ -55,10 +51,9 @@ namespace WordsLearningApp.BLL.Services
                 word.Name = wordDTO.Name;
                 db.Words.Create(word);
                 word.UserWords.Add(new UsersWords { User = user, Word = word });
-                
-            }       
-            //TODO: Add condition for save
-            db.Save();
+
+                db.Save();
+            }
 
         }
 
@@ -71,7 +66,7 @@ namespace WordsLearningApp.BLL.Services
         public void EditWord(WordDTO wordDTO)
         {
             //Think about automapper
-            Word word = db.Words.Find(w=> w.Id == wordDTO.Id).SingleOrDefault();
+            Word word = db.Words.Find(w => w.Id == wordDTO.Id).SingleOrDefault();
             word.Name = wordDTO.Name;
             db.Words.Update(word);
             db.Save();
@@ -80,13 +75,12 @@ namespace WordsLearningApp.BLL.Services
         public WordDTO GetWord(int id)
         {
             WordDTO wordDTO = new WordDTO();
-            Word word = db.Words.Find(w=> w.Id == wordDTO.Id).SingleOrDefault();
+            Word word = db.Words.Find(w => w.Id == wordDTO.Id).SingleOrDefault();
             wordDTO.Id = word.Id;
             wordDTO.Name = word.Name;
             return wordDTO;
         }
-        
-        //on reply send definition
+
         private void GetScheduledUsers(object sender, ElapsedEventArgs e)
         {
             scheduledUsers = db.Users.Find(user =>
@@ -94,17 +88,27 @@ namespace WordsLearningApp.BLL.Services
                user.FinishSendWordsTime.TimeOfDay > DateTime.Now.TimeOfDay).ToList();
 
         }
-        
+        //Think about updating user leaning level
         public List<SendMessagePackage> GetSendMessagePackages()
         {
             var sendMessagePackages = new List<SendMessagePackage>();
 
             foreach (var user in scheduledUsers)
             {
+                Word word = user.UserWords.OrderBy(p => p.LearningLevel).FirstOrDefault().Word;
                 WordDTO wordDTO = new WordDTO();
+                wordDTO.Name = word.Name;
+                wordDTO.Id = word.Id;
 
-                //TODO add logic for select words 
-                wordDTO.Name = user.CommonUserWords.FirstOrDefault().Word.Name;
+                wordDTO.LearningLevel = ++user.UserWords.Where(p => p.User == user && p.Word == word).FirstOrDefault().LearningLevel;
+                EditWord(wordDTO);
+
+                //UserDTO userDTO = new UserDTO();
+                //userDTO.Id = user.Id;
+                //userDTO.Name = user.Name;
+                //userDTO.StartSendWordTime =  user.StartSendWordsTime; 
+                //userDTO.FinishSendWordTime =  user.FinishSendWordsTime; 
+                //userDTO.LearningLevel = user.UserWords.Where(p => p.Word == word).FirstOrDefault().LearningLevel++;
 
                 SendMessagePackage sendMessagePackage = new SendMessagePackage(user.ChatId, wordDTO.Name);
                 sendMessagePackages.Add(sendMessagePackage);
@@ -114,6 +118,7 @@ namespace WordsLearningApp.BLL.Services
             return sendMessagePackages;
         }
 
-        //TODO: Add method for sending word in schedule (Timer)
+
+
     }
 }

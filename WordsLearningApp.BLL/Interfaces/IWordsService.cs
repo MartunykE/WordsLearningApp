@@ -15,7 +15,6 @@ namespace WordsLearningApp.BLL.Interfaces
         public void EditWord(WordDTO word);
         public WordDTO GetWord(int id);
         public void DeleteWord(int id);
-        public void ChangeShowFrequency(ShowFrequency showFrequencyLevel);
         public List<SendMessagePackage> GetSendMessagePackages();
 
     }

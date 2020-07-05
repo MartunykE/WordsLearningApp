@@ -41,6 +41,7 @@ namespace WordsLearningApp.DAL.UnitOfWork
         {
             db = new WordContext(options);
         }
+
         public async void Save()
         {
            await db.SaveChangesAsync();

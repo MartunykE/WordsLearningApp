@@ -8,11 +8,11 @@ namespace WordsLearningApp.BLL.DTO
         public int Id { get; set; }
         public long ChatId { get; set; }
         public string Name { get; set; }
-        public ShowFrequency ShowFrequency { get; set; }
-        public int WordId { get; set; }
+        public int LearningLevel { get; set; }
 
         public DateTime StartSendWordTime { get; set; }
         public DateTime FinishSendWordTime { get; set; }
+
 
     }
 
