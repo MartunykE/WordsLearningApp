@@ -85,7 +85,7 @@ namespace WordsLearningApp.WEB.Models
             foreach (var message in messagePackages)
             {
                 InlineKeyboardButton button = new InlineKeyboardButton() { Text = "Get Definition", CallbackData = $"/getDefinition {message.Message}" };
-                InlineKeyboardMarkup markup = new InlineKeyboardMarkup(button);
+                InlineKeyboardMarkup markup = new InlineKeyboardMarkup(button);                
                 await botClient.SendTextMessageAsync(message.ChatId, message.Message, replyMarkup: markup);
             }
         }

@@ -23,19 +23,26 @@ namespace WordsLearningApp.BLL.DictionaryAPI
         }
         public string GetWordDefinition(string word)
         {
-            string definition = "";
+            string definition = null;
             string requestUrlBase = $"https://www.dictionaryapi.com/api/v3/references/sd3/json/{word}?key={dictionaryAPIKey}";
 
             Task<HttpResponseMessage> result = SendQueryToApi(requestUrlBase);
             string dictionaryJson = result.Result.Content.ReadAsStringAsync().Result;
-                      
-            List<JToken> dictionaryMessageTokens =  JsonConvert.DeserializeObject<List<JToken>>(dictionaryJson);
-
-            JToken dictionaryToken = dictionaryMessageTokens.FirstOrDefault()["shortdef"];
-            for (int i = 0; i < dictionaryToken.Count(); i++)
+            JToken dictionaryToken = null;
+            try
             {
-                definition += dictionaryToken[i].ToString() + "\n";
-            }                                    
+                List<JToken> dictionaryMessageTokens = JsonConvert.DeserializeObject<List<JToken>>(dictionaryJson);
+                dictionaryToken = dictionaryMessageTokens.FirstOrDefault()["shortdef"];
+                for (int i = 0; i < dictionaryToken.Count(); i++)
+                {
+                    definition += dictionaryToken[i].ToString() + "\n";
+                }
+            }
+            catch
+            {
+
+            }
+           
             return definition;
         }
 
@@ -56,6 +63,6 @@ namespace WordsLearningApp.BLL.DictionaryAPI
 
             return key;
         }
-        
+
     }
 }

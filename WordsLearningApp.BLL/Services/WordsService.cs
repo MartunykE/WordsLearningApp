@@ -9,17 +9,18 @@ using WordsLearningApp.DAL.Models;
 using System.Linq;
 using System.Timers;
 using System.Diagnostics;
+using System.Data.Common;
 
 namespace WordsLearningApp.BLL.Services
 {
     public class WordsService : IWordsService
     {
         IUntiOfWork db { get; set; }
-
         List<User> scheduledUsers;
         Timer timer;
+
         public Timer Timer { get { return timer; } }
-        //TODO:method for initializing timer. event if schedule was updated
+
         public WordsService(IUntiOfWork untiOfWork)
         {
             db = untiOfWork;
@@ -28,7 +29,7 @@ namespace WordsLearningApp.BLL.Services
             //10 sec
             timer = new Timer(10000);
             timer.Elapsed += new ElapsedEventHandler(GetScheduledUsers);
-            timer.Start();
+            //timer.Start();
 
         }
 
@@ -50,10 +51,10 @@ namespace WordsLearningApp.BLL.Services
                 word = new Word();
                 word.Name = wordDTO.Name;
                 db.Words.Create(word);
-                word.UserWords.Add(new UsersWords { User = user, Word = word });
-
-                db.Save();
             }
+
+            word.UserWords.Add(new UsersWords { User = user, Word = word });
+            db.Save();
 
         }
 
@@ -88,7 +89,7 @@ namespace WordsLearningApp.BLL.Services
                user.FinishSendWordsTime.TimeOfDay > DateTime.Now.TimeOfDay).ToList();
 
         }
-        //Think about updating user leaning level
+
         public List<SendMessagePackage> GetSendMessagePackages()
         {
             var sendMessagePackages = new List<SendMessagePackage>();
@@ -117,6 +118,11 @@ namespace WordsLearningApp.BLL.Services
 
             return sendMessagePackages;
         }
+
+        //public void Dispose()
+        //{
+        //    db.Dispose();
+        //}
 
 
 

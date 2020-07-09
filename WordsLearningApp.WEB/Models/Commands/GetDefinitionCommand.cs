@@ -23,7 +23,10 @@ namespace WordsLearningApp.WEB.Models.Commands
         {
             string wordName = message.Text.Substring(message.Text.IndexOf(" ") + 1);
             string definition =  languageDictionary.GetWordDefinition(wordName);
-
+            if (string.IsNullOrEmpty(definition))
+            {
+                definition = $"Can`t find the definition to word {wordName} in dictionary ";
+            }
 
             await telegramBotClient.SendTextMessageAsync(message.Chat.Id, definition);
         }

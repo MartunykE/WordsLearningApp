@@ -55,5 +55,10 @@ namespace WordsLearningApp.BLL.Services
         {
             throw new NotImplementedException();
         }
+
+        //public void Dispose()
+        //{
+        //    db.Dispose();
+        //}
     }
 }

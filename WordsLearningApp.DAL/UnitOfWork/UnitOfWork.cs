@@ -42,9 +42,29 @@ namespace WordsLearningApp.DAL.UnitOfWork
             db = new WordContext(options);
         }
 
-        public async void Save()
+        public void Save()
         {
-           await db.SaveChangesAsync();
+            db.SaveChanges();
         }
+
+        //private bool disposed = false;
+
+        //public virtual void Dispose(bool disposing)
+        //{
+        //    if (!this.disposed)
+        //    {
+        //        if (disposing)
+        //        {
+        //            db.Dispose();
+        //        }
+        //        this.disposed = true;
+        //    }
+        //}
+
+        //public void Dispose()
+        //{
+        //    Dispose(true);
+        //    GC.SuppressFinalize(this);
+        //}
     }
 }
