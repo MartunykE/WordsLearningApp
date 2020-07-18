@@ -37,7 +37,6 @@ namespace WordsLearningApp.BLL.Services
             User user = db.Users.Find(p => p.ChatId == userDTO.ChatId).FirstOrDefault();
             user.Name = userDTO.Name;
 
-            //change to nullable datetime
             DateTime dateTime = default;
             if (userDTO.StartSendWordTime != dateTime)
             {
@@ -53,6 +52,9 @@ namespace WordsLearningApp.BLL.Services
 
         public UserDTO GetUser(int id)
         {
+            UserDTO userDTO = new UserDTO();
+            User oo = new User();
+            
             throw new NotImplementedException();
         }
 

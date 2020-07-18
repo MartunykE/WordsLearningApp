@@ -8,7 +8,7 @@ using Telegram.Bot.Types;
 using WordsLearningApp.BLL.DTO;
 using WordsLearningApp.BLL.Interfaces;
 
-namespace WordsLearningApp.WEB.Models.Commands
+namespace WordsLearningApp.TelegramBot.Models.Commands
 {
     public class CreateWordCommand : Command
     {

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using WordsLearningApp.WEB.Models;
+using WordsLearningApp.TelegramBot.Models;
 using WordsLearningApp.BLL.Interfaces;
 using WordsLearningApp.BLL.Services;
 using WordsLearningApp.BLL.DictionaryAPI;
@@ -17,7 +17,7 @@ using WordsLearningApp.Root;
 using WordsLearningApp.DAL.Interfaces;
 using AutoMapper;
 
-namespace WordsLearningApp.WEB
+namespace WordsLearningApp.TelegramBot
 {
     public class Startup
     {

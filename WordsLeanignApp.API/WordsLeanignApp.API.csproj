@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WordsLearningApp.BLL\WordsLearningApp.BLL.csproj" />
+    <ProjectReference Include="..\WordsLearningApp.Root\WordsLearningApp.Root.csproj" />
+  </ItemGroup>
+
+
+</Project>

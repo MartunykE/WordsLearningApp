@@ -9,7 +9,7 @@ using WordsLearningApp.BLL.Interfaces;
 using WordsLearningApp.BLL.DTO;
 using AutoMapper;
 
-namespace WordsLearningApp.WEB.Models.Commands
+namespace WordsLearningApp.TelegramBot.Models.Commands
 {
     public class SetShowTimeCommand : Command
     {

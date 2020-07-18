@@ -2,6 +2,7 @@
 using WordsLearningApp.BLL.BussinesModels;
 using System.Timers;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace WordsLearningApp.BLL.Interfaces
 {
@@ -12,7 +13,7 @@ namespace WordsLearningApp.BLL.Interfaces
         public Timer Timer { get; }
         public void CreateWord(WordDTO word);
 
-        public void EditWord(WordDTO word);
+        public Task<int> EditWord(WordDTO word);
         public WordDTO GetWord(int id);
         public void DeleteWord(int id);
         public List<SendMessagePackage> GetSendMessagePackages();

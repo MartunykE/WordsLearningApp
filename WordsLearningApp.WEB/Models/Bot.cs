@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Telegram.Bot;
-using WordsLearningApp.WEB.Models.Commands;
-using WordsLearningApp.WEB;
+using WordsLearningApp.TelegramBot.Models.Commands;
+using WordsLearningApp.TelegramBot;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types;
 using WordsLearningApp.BLL.Interfaces;
@@ -18,7 +18,7 @@ using WordsLearningApp.BLL.Services;
 using Microsoft.AspNetCore.DataProtection;
 using Telegram.Bot.Types.ReplyMarkups;
 
-namespace WordsLearningApp.WEB.Models
+namespace WordsLearningApp.TelegramBot.Models
 {
     public class Bot
     {

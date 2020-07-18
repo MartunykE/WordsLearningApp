@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WordsLeanignApp.API\WordsLeanignApp.API.csproj" />
     <ProjectReference Include="..\WordsLearningApp.BLL\WordsLearningApp.BLL.csproj" />
     <ProjectReference Include="..\WordsLearningApp.Root\WordsLearningApp.Root.csproj" />
   </ItemGroup>

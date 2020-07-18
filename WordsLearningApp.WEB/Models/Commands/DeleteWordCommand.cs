@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WordsLearningApp.WEB.Models.Commands
+namespace WordsLearningApp.TelegramBot.Models.Commands
 {
     public class DeleteWordCommand
     {

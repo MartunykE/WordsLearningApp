@@ -9,7 +9,7 @@ using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 using WordsLearningApp.BLL.Interfaces;
-namespace WordsLearningApp.WEB.Models.Commands
+namespace WordsLearningApp.TelegramBot.Models.Commands
 {
     public class GetDefinitionCommand : Command
     {

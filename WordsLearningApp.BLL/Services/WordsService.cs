@@ -10,6 +10,7 @@ using System.Linq;
 using System.Timers;
 using System.Diagnostics;
 using System.Data.Common;
+using System.Threading.Tasks;
 
 namespace WordsLearningApp.BLL.Services
 {
@@ -64,23 +65,41 @@ namespace WordsLearningApp.BLL.Services
             db.Save();
         }
 
-        public void EditWord(WordDTO wordDTO)
+        public Task<int> EditWord(WordDTO wordDTO)
         {
             //Think about automapper
             Word word = db.Words.Find(w => w.Id == wordDTO.Id).SingleOrDefault();
+            if (word == null)
+            {
+                return Task.FromResult(-1);
+            }
             word.Name = wordDTO.Name;
             db.Words.Update(word);
             db.Save();
+            return Task.FromResult(1);
+
         }
 
         public WordDTO GetWord(int id)
         {
             WordDTO wordDTO = new WordDTO();
-            Word word = db.Words.Find(w => w.Id == wordDTO.Id).SingleOrDefault();
-            wordDTO.Id = word.Id;
-            wordDTO.Name = word.Name;
+            try
+            {
+                Word word = db.Words.Find(w => w.Id == id).SingleOrDefault();
+                wordDTO.Id = word.Id;
+                wordDTO.Name = word.Name;
+            }
+            catch
+            {
+                return null;
+            }
             return wordDTO;
         }
+        //public IEnumerable<WordDTO> GetWords()
+        //{
+        //    automapper!
+        //        return db.Words.GetAll();
+        //}
 
         private void GetScheduledUsers(object sender, ElapsedEventArgs e)
         {
@@ -104,13 +123,6 @@ namespace WordsLearningApp.BLL.Services
                 wordDTO.LearningLevel = ++user.UserWords.Where(p => p.User == user && p.Word == word).FirstOrDefault().LearningLevel;
                 EditWord(wordDTO);
 
-                //UserDTO userDTO = new UserDTO();
-                //userDTO.Id = user.Id;
-                //userDTO.Name = user.Name;
-                //userDTO.StartSendWordTime =  user.StartSendWordsTime; 
-                //userDTO.FinishSendWordTime =  user.FinishSendWordsTime; 
-                //userDTO.LearningLevel = user.UserWords.Where(p => p.Word == word).FirstOrDefault().LearningLevel++;
-
                 SendMessagePackage sendMessagePackage = new SendMessagePackage(user.ChatId, wordDTO.Name);
                 sendMessagePackages.Add(sendMessagePackage);
             }
@@ -118,12 +130,6 @@ namespace WordsLearningApp.BLL.Services
 
             return sendMessagePackages;
         }
-
-        //public void Dispose()
-        //{
-        //    db.Dispose();
-        //}
-
 
 
     }
