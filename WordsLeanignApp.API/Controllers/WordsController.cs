@@ -12,8 +12,10 @@ using WordsLearningApp.BLL.Interfaces;
 
 namespace WordsLeanignApp.API.Controllers
 {
-    [Route("api/[controller]/[Action]")]
-    public class WordsController : Controller
+
+    [Route("api/[controller]")]
+    [ApiController]
+    public class WordsController : ControllerBase
     {
         private readonly IWordsService wordsService;
         public WordsController(IWordsService wordsService)

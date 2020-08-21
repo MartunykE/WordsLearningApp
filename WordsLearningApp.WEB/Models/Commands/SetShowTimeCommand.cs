@@ -60,7 +60,7 @@ namespace WordsLearningApp.TelegramBot.Models.Commands
                 UserDTO userDTO = new UserDTO()
                 {
                     ChatId = message.Chat.Id,
-                    Name = message.Chat.Username,
+                    Username = message.Chat.Username,
                 };
                 if (message.Text.Contains("/StartShowTime"))
                 {

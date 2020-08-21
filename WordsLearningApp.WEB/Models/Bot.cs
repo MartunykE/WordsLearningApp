@@ -20,6 +20,10 @@ using Telegram.Bot.Types.ReplyMarkups;
 
 namespace WordsLearningApp.TelegramBot.Models
 {
+    public class BotSettings
+    {
+        public static string Key { get; set; }
+    }
     public class Bot
     {
         private static TelegramBotClient botClient;

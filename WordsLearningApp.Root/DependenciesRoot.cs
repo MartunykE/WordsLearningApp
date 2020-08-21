@@ -16,8 +16,8 @@ namespace WordsLearningApp.Root
         public static void InjectDependencies(IServiceCollection services, string dbConnection)
         {
 
-            services.AddDbContext<WordContext>(options => options.UseSqlServer(dbConnection),ServiceLifetime.Transient);
-            services.AddScoped<IUntiOfWork, UnitOfWork>();
+            services.AddDbContext<WordContext>(options => options.UseSqlServer(dbConnection));
+            services.AddTransient<IUntiOfWork, UnitOfWork>();
             services.AddTransient<IWordsService, WordsService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<ILanguageDictionary, EnglishDictionary>();

@@ -6,6 +6,7 @@ using WordsLearningApp.BLL.DTO;
 using WordsLearningApp.BLL.Interfaces;
 using WordsLearningApp.DAL.Interfaces;
 using WordsLearningApp.DAL.Models;
+using System.Security.Cryptography;
 namespace WordsLearningApp.BLL.Services
 {
     public class UserService : IUserService
@@ -17,14 +18,70 @@ namespace WordsLearningApp.BLL.Services
         }
         public void CreateUser(UserDTO userDTO)
         {
-            User user = new User()
+            User user = new User();
+
+            if (string.IsNullOrWhiteSpace(userDTO.Password) && userDTO.ChatId == null)
             {
-                ChatId= userDTO.ChatId,
-                Name = userDTO.Name
-            };
+                throw new Exception("Password or ChatId is Required");
+            }
+            if (db.Users.Find(u => u.Username == userDTO.Username).Count() != 0)
+            {
+                throw new Exception($"Username {userDTO.Username} is already taken");
+            }
+            user.ChatId = userDTO.ChatId;
+            user.Username = userDTO.Username;
+            byte[] passwordHash;
+            byte[] passwordSalt;
+
+            CreatePasswordHash(userDTO.Password, out passwordHash, out passwordSalt);
+            user.PasswordHash = passwordHash;
+            user.PasswordSalt = passwordSalt;
 
             db.Users.Create(user);
             db.Save();
+        }
+
+        public UserDTO Authenticate(string username, string password)
+        {
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            {
+                return null;
+            }
+            var user = db.Users.Find(p => p.Username == username).FirstOrDefault();
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+            {
+                return null;
+            }
+
+            UserDTO userDTO = new UserDTO
+            {
+                Username = user.Username
+            };
+            return userDTO;
+
+        }
+
+        public bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+        {
+            using (var hmac = new HMACSHA512(passwordSalt))
+            {
+                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                for (int i = 0; i < computedHash.Length; i++)
+                {
+                    if (computedHash[i] != passwordHash[i])
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
 
         public void DeleteUser(int chatId)
@@ -35,16 +92,16 @@ namespace WordsLearningApp.BLL.Services
         public void EditUser(UserDTO userDTO)
         {
             User user = db.Users.Find(p => p.ChatId == userDTO.ChatId).FirstOrDefault();
-            user.Name = userDTO.Name;
+            user.Username = userDTO.Username;
 
             DateTime dateTime = default;
             if (userDTO.StartSendWordTime != dateTime)
             {
-                user.StartSendWordsTime = userDTO.StartSendWordTime;
+                user.StartSendWordsTime = (DateTime)userDTO.StartSendWordTime;
             }
             if (userDTO.FinishSendWordTime != dateTime)
             {
-                user.FinishSendWordsTime = userDTO.FinishSendWordTime;
+                user.FinishSendWordsTime = (DateTime)userDTO.FinishSendWordTime;
             }
             db.Users.Update(user);
             db.Save();
@@ -53,11 +110,35 @@ namespace WordsLearningApp.BLL.Services
         public UserDTO GetUser(int id)
         {
             UserDTO userDTO = new UserDTO();
-            User oo = new User();
-            
-            throw new NotImplementedException();
+            User user = db.Users.Get(id);
+            var all = db.Users.GetAll().ToList();
+
+            if (user == null)
+            {
+                return null;
+            }
+            userDTO.ChatId = user.ChatId;
+            userDTO.Username = user.Username;
+            return userDTO;
+
         }
 
+        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        {
+            using (var hmac = new HMACSHA512())
+            {
+                passwordSalt = hmac.Key;
+                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            }
+        }
+
+        public IEnumerable<UsersWords> GetUsersWords(int userId)
+        {
+            //think how to get words
+            var words = db.Users.Get(userId).UserWords;
+            return words;
+
+        }
         //public void Dispose()
         //{
         //    db.Dispose();

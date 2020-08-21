@@ -123,7 +123,7 @@ namespace WordsLearningApp.BLL.Services
                 wordDTO.LearningLevel = ++user.UserWords.Where(p => p.User == user && p.Word == word).FirstOrDefault().LearningLevel;
                 EditWord(wordDTO);
 
-                SendMessagePackage sendMessagePackage = new SendMessagePackage(user.ChatId, wordDTO.Name);
+                SendMessagePackage sendMessagePackage = new SendMessagePackage((long)user.ChatId, wordDTO.Name);
                 sendMessagePackages.Add(sendMessagePackage);
             }
 
