@@ -15,6 +15,26 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordsLeanignApp.API", "Word
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{C900BDC8-D334-48BE-B268-A986F0059A12}"
 EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WordsLearnignApp.Website", "Clients\WordsLearnignApp.Website\", "{08DC840F-5DF4-4948-8790-02B9278FC50C}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_50983"
+		Debug.AspNetCompiler.PhysicalPath = "Clients\WordsLearnignApp.Website\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50983\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_50983"
+		Release.AspNetCompiler.PhysicalPath = "Clients\WordsLearnignApp.Website\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50983\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "50983"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,12 +61,17 @@ Global
 		{44FCD49D-ABF9-4E05-BC06-820AD42A7C37}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44FCD49D-ABF9-4E05-BC06-820AD42A7C37}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44FCD49D-ABF9-4E05-BC06-820AD42A7C37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08DC840F-5DF4-4948-8790-02B9278FC50C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08DC840F-5DF4-4948-8790-02B9278FC50C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08DC840F-5DF4-4948-8790-02B9278FC50C}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{08DC840F-5DF4-4948-8790-02B9278FC50C}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{AD85D805-EB1C-49AF-B474-3A98967D041C} = {C900BDC8-D334-48BE-B268-A986F0059A12}
+		{08DC840F-5DF4-4948-8790-02B9278FC50C} = {C900BDC8-D334-48BE-B268-A986F0059A12}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5BDDE53D-5516-4A96-AF16-16320944B5BF}
