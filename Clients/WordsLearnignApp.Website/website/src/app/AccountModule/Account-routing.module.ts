@@ -7,7 +7,7 @@ import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
     {
-        path: '', component: LayoutComponent,
+        path: 'Account', component: LayoutComponent,
         children: [
             { path: 'Register', component: RegisterComponent },
             { path: 'Login', component: LoginComponent },
@@ -20,4 +20,4 @@ const routes: Routes = [
     imports:[RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
-export class AccountRouterModule { }
+export class AccountRoutingModule { }
