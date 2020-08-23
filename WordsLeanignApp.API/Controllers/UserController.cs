@@ -46,10 +46,10 @@ namespace WordsLeanignApp.API.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("Authenticate")]
-        public IActionResult AuthenticateUser(string username, string password)
+        [HttpPost("Authenticate")] //TODO: think about model
+        public IActionResult AuthenticateUser(UserLogin userLogin)
         {
-            var userDTO = userService.Authenticate(username, password);
+            var userDTO = userService.Authenticate(userLogin.Username, userLogin.Password);
             if (userDTO == null)
             {
                 return BadRequest();

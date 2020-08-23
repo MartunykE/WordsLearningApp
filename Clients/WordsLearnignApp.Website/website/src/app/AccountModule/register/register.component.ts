@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AccountService } from 'src/app/Services/account.service';
+import { User } from 'src/app/Models/User';
 
 
 
@@ -9,4 +11,9 @@ import { Component } from '@angular/core';
 })
 export class RegisterComponent{
 
+    constructor(private accountService: AccountService){}
+
+    register(){
+        this.accountService.register(new User());
+    }
 }

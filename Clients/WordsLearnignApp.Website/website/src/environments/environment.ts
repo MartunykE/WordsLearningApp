@@ -5,8 +5,8 @@
 const baseUrl = 'https:localhost:44345';
 export const environment = {
   production: false,
-
-  wordsUrl : `${baseUrl}/api/Words`
+  usersUrl: `${baseUrl}/api/User`,
+  wordsUrl : `${baseUrl}/api/Words`,
 };
 
 /*
