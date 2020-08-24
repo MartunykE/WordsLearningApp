@@ -5,12 +5,14 @@ import { RegisterComponent } from './register/register.component';
 import { LayoutComponent } from './layout/layout.component';
 import { AccountRoutingModule } from './Account-routing.module';
 import { AccountService } from '../Services/account.service';
+import { MaterialModule } from '../Modules/Material.module';
 
 
 
 @NgModule({
     imports:[
-        AccountRoutingModule
+        AccountRoutingModule,
+        MaterialModule
     ],
     providers:[
         AccountService

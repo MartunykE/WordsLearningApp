@@ -1,16 +1,21 @@
-layout
-<nav>
-    <div>
-      <a routerLink="/words">words</a>
-    </div>
-    <div>
-      <a routerLink="Register">reg</a>
-    </div>
-    <div>
-      <a routerLink="Login"> login </a>
-    </div>
-  
-  
-  </nav>
-  
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+
+    <button mat-icon-button>
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <span class="example-spacer"></span>
+    <span class="app-name"> Words App </span>
+    <span class="example-spacer"></span>
+
+    <button routerLink="Register" mat-icon-button>
+      <mat-icon>accessibility</mat-icon>
+    </button>
+
+    <button routerLink="Login" mat-icon-button>
+      <mat-icon>login</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
 <router-outlet></router-outlet>
