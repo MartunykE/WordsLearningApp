@@ -16,8 +16,9 @@ export class AccountService {
     register(user: User) {
         //test user
         // let user = new User();
-        user.Username = 'myUserName';
-        user.Password = 'password';
+        
+        console.log(user.Username);
+        console.log(user.Password); 
 
 
         return this.httpClient.post(`${environment.usersUrl}/Register`, user).subscribe();
