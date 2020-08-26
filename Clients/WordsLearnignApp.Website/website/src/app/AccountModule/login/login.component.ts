@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { AccountService } from 'src/app/Services/account.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { first } from 'rxjs/operators';
 
 
 
@@ -8,13 +10,31 @@ import { AccountService } from 'src/app/Services/account.service';
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.css']
 })
-export class LoginComponent{
-    constructor(private accountService: AccountService){}
+export class LoginComponent {
+    loginForm: FormGroup;
 
-    login(){
-        this.accountService.login('myUserName','password').subscribe();
+    constructor(private accountService: AccountService, private formBuilder: FormBuilder) { }
+
+    ngOnInit() {
+        this.loginForm = this.formBuilder.group({
+            Login: ['', Validators.required],
+            Password: ['', [Validators.required, Validators.minLength(6)]]
+        });
+        console.log('init');
     }
-    token(){
+
+    login() {
+        console.log(this.loginForm.value.Login);
+        console.log(this.loginForm.value.Password);
+
+        if (this.loginForm.valid) {
+            console.log('valid');
+            this.accountService.login(this.loginForm.value.Login, this.loginForm.value.Password)
+            .pipe(first())
+            .subscribe();
+        }
+    }
+    token() {
         console.log(localStorage.getItem('user'));
     }
 }

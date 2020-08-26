@@ -7,35 +7,36 @@ import { map } from 'rxjs/operators';
 
 @Injectable()
 export class AccountService {
+    
+    private currentUser: BehaviorSubject<User>;
 
     constructor(private httpClient: HttpClient) {
 
     }
-    private userSubject: BehaviorSubject<User>;
 
-    register(user: User) {
-        //test user
-        // let user = new User();
+    public get currentUserValue(): User{
+        return this.currentUser.value;
+    }
+
+    register(user: User) {       
         
         console.log(user.Username);
         console.log(user.Password); 
 
-
-        return this.httpClient.post(`${environment.usersUrl}/Register`, user).subscribe();
+        return this.httpClient.post(`${environment.usersUrl}/Register`, user);
     }
 
     login(username:string , password:string) {
         console.log(username);
-        //http post then localstorage set item user , then user next
         return this.httpClient.post<User>(`${environment.usersUrl}/Authenticate`, { username, password })
             .pipe(map(user => {
                 localStorage.setItem('user', JSON.stringify(user));
-                // this.userSubject.next(user);
+                this.currentUser.next(user);
                 return user;
             }));
     }
 
     logout() {
-
+        localStorage.removeItem('user');
     }
 }
