@@ -20,7 +20,6 @@ export class LoginComponent {
             Login: ['', Validators.required],
             Password: ['', [Validators.required, Validators.minLength(6)]]
         });
-        console.log('init');
     }
 
     login() {

@@ -13,8 +13,11 @@
       <mat-icon>accessibility</mat-icon>
     </button>
 
-    <button routerLink="Login" mat-icon-button>
-      <mat-icon>login</mat-icon>
+    <button *ngIf="!user" routerLink="Login" mat-icon-button>
+      <mat-icon> login </mat-icon>
+    </button>
+    <button *ngIf="user" (click)="logout()" mat-icon-button>
+      <mat-icon> exit_to_app </mat-icon> 
     </button>
   </mat-toolbar-row>
 </mat-toolbar>

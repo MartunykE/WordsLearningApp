@@ -8,15 +8,15 @@ import { map } from 'rxjs/operators';
 @Injectable()
 export class AccountService {
     
-    private currentUser: BehaviorSubject<User>;
+    public currentUser: BehaviorSubject<User>;
 
     constructor(private httpClient: HttpClient) {
-
+        this.currentUser = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
     }
 
-    public get currentUserValue(): User{
-        return this.currentUser.value;
-    }
+    // public get currentUserValue(): User{
+    //     return this.currentUser.value;
+    // }
 
     register(user: User) {       
         
@@ -38,5 +38,6 @@ export class AccountService {
 
     logout() {
         localStorage.removeItem('user');
+        this.currentUser.next(null);
     }
 }

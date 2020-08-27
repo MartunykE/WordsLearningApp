@@ -12,6 +12,7 @@ import { from } from 'rxjs';
 import { AccountModule } from './AccountModule/Account.Module';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+import { AuthGuard } from './Helpers/AuthGuard';
 
 
 
@@ -30,6 +31,7 @@ import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
   exports:[    
   ],
   providers: [
+    AuthGuard
     // { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'standart' } },
   ],
   bootstrap: [AppComponent],

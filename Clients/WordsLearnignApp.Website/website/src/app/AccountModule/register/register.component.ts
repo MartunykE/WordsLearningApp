@@ -16,7 +16,6 @@ export class RegisterComponent {
 
     registerForm: FormGroup;
 
-
     constructor(
         private accountService: AccountService,
         private formBuilder: FormBuilder,
@@ -32,13 +31,18 @@ export class RegisterComponent {
             StartSendWordTime: [''],
             FinishSendWordTime: ['']
         });
+
     }
     register() {
+        let user = new User();
+        user.Username = "Admin2";
+        user.Password = "AdminPass";
+
         if (this.registerForm.valid) {
-            this.accountService.register(this.registerForm.value)
+            this.accountService.register(user)
                 .subscribe(
                     userData => {
-                        this.router.navigate(['../login'], { relativeTo: this.route })
+                        this.router.navigate(['../Login'], { relativeTo: this.route })
                     },
                     error =>{
                         //TODO: error handler

@@ -3,6 +3,7 @@ import { AccountService } from '../Services/account.service';
 import { UserComponent } from './User/user.component';
 import { MaterialModule } from '../Modules/Material.module';
 import { UserRoutingModule } from './User-routing.module';
+import { AuthGuard } from '../Helpers/AuthGuard';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { UserRoutingModule } from './User-routing.module';
         UserRoutingModule
     ],
     providers:[
-        AccountService
+        AccountService,
+        AuthGuard
     ],
     declarations:[
         UserComponent
