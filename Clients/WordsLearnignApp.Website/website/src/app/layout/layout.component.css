@@ -1,5 +1,4 @@
-
-@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+/* @import "~@angular/material/prebuilt-themes/indigo-pink.css"; */
 .example-spacer {
     flex: 1 1 auto;
   }
@@ -15,3 +14,6 @@
     float: right;
     margin: 8px;
   }  
+  .app-name{
+      content: center;
+  }

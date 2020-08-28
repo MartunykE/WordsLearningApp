@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LayoutComponent } from '../AccountModule/layout/layout.component';
+import { EditUserComponent } from './EditUser/editUser.component';
+import { UserLayoutComponent } from './UserLayout/userLayout.component';
 
 const routes: Routes = [{
-
-
-    path: 'User', component: LayoutComponent,
+    path: 'User', component: UserLayoutComponent,
     children:[
-        // {path: ':id/Edit', com}
+         {path: ':id/Edit', component: EditUserComponent}
     ]
 }
 ];

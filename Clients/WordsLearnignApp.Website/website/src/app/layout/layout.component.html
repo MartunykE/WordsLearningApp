@@ -9,16 +9,20 @@
     <span class="app-name"> Words App </span>
     <span class="example-spacer"></span>
 
-    <button routerLink="Register" mat-icon-button>
+    <button routerLink="Account/Register" mat-icon-button>
       <mat-icon>accessibility</mat-icon>
     </button>
 
-    <button *ngIf="!user" routerLink="Login" mat-icon-button>
+    <button *ngIf="!user" [routerLink]="['Account/Login']" mat-icon-button>
       <mat-icon> login </mat-icon>
     </button>
     <button *ngIf="user" (click)="logout()" mat-icon-button>
       <mat-icon> exit_to_app </mat-icon> 
     </button>
+    <!-- <button *ngIf="user" routerLink="{user.Id}/Edit" mat-icon-button> -->
+    <button routerLink="User">
+      <mat-icon> settings </mat-icon>
+    </button>
   </mat-toolbar-row>
 </mat-toolbar>
-<router-outlet></router-outlet>
+<!-- <router-outlet></router-outlet> -->

@@ -2,11 +2,10 @@ import { NgModule } from '@angular/core';
 
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { LayoutComponent } from './layout/layout.component';
 import { AccountService } from '../Services/account.service';
 import { AccountRoutingModule } from './Account-routing.module';
 
-import '../../polyfills';
+// import '../../polyfills';
 
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -38,7 +37,6 @@ import { AuthGuard } from '../Helpers/AuthGuard';
     declarations: [
         LoginComponent,
         RegisterComponent,
-        LayoutComponent
     ]
 })
 export class AccountModule { }
