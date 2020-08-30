@@ -7,14 +7,19 @@ using WordsLearningApp.BLL.Interfaces;
 using WordsLearningApp.DAL.Interfaces;
 using WordsLearningApp.DAL.Models;
 using System.Security.Cryptography;
+using AutoMapper;
+using WordsLearningApp.BLL.AutoMapper;
+
 namespace WordsLearningApp.BLL.Services
 {
     public class UserService : IUserService
     {
         IUntiOfWork db;
-        public UserService(IUntiOfWork untiOfWork)
+        IMapper mapper;
+        public UserService(IUntiOfWork untiOfWork, IMapper mapper)
         {
             db = untiOfWork;
+            this.mapper = mapper;
         }
         public void CreateUser(UserDTO userDTO)
         {
@@ -58,11 +63,12 @@ namespace WordsLearningApp.BLL.Services
             {
                 return null;
             }
-
-            UserDTO userDTO = new UserDTO
-            {
-                Username = user.Username
-            };
+            //TODO: Use AutoMapper
+            var userDTO = mapper.Map<UserDTO>(user);
+            //UserDTO userDTO = new UserDTO
+            //{
+            //    Username = user.Username
+            //};
             return userDTO;
 
         }

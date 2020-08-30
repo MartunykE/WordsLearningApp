@@ -8,14 +8,12 @@ using WordsLearningApp.DAL;
 using WordsLearningApp.DAL.EF;
 using WordsLearningApp.DAL.Interfaces;
 using WordsLearningApp.DAL.UnitOfWork;
-
 namespace WordsLearningApp.Root
 {
     public class DependenciesRoot
     {
         public static void InjectDependencies(IServiceCollection services, string dbConnection)
         {
-
             services.AddDbContext<WordContext>(options => options.UseSqlServer(dbConnection));
             services.AddTransient<IUntiOfWork, UnitOfWork>();
             services.AddTransient<IWordsService, WordsService>();

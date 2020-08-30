@@ -71,6 +71,7 @@ namespace WordsLeanignApp.API.Controllers
 
             return Ok(new
             {
+                //TODO: look why id is null
                 Id = userDTO.Id,
                 ChatId = userDTO.ChatId,
                 Name = userDTO.Username,

@@ -30,6 +30,8 @@ export class AccountService {
         console.log(username);
         return this.httpClient.post<User>(`${environment.usersUrl}/Authenticate`, { username, password })
             .pipe(map(user => {
+
+                console.log("acc Secvice"+ user.Id);
                 localStorage.setItem('user', JSON.stringify(user));
                 this.currentUser.next(user);
                 return user;

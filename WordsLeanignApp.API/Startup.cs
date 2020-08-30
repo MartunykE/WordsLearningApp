@@ -4,6 +4,7 @@ using System.Diagnostics.SymbolStore;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -16,6 +17,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using WordsLeanignApp.API.Heplers;
 using WordsLearningApp.BLL.Interfaces;
+using WordsLearningApp.BLL.AutoMapper;
 using WordsLearningApp.Root;
 
 namespace WordsLeanignApp.API
@@ -72,9 +74,10 @@ namespace WordsLeanignApp.API
                 };
             });
 
-
             DependenciesRoot.InjectDependencies(services, connection);
-
+            var mapperConfig = new MapperConfiguration(conf => conf.AddProfile(new MappingProfile()));
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
             //services.AddAutoMapper(typeof(Startup));
         }
 

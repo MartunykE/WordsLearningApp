@@ -19,10 +19,14 @@
     <button *ngIf="user" (click)="logout()" mat-icon-button>
       <mat-icon> exit_to_app </mat-icon> 
     </button>
-    <!-- <button *ngIf="user" routerLink="{user.Id}/Edit" mat-icon-button> -->
-    <button routerLink="User">
+    <!-- <button routerLink="User/:{{user.Id}}/Edit">
       <mat-icon> settings </mat-icon>
-    </button>
+    </button> -->
   </mat-toolbar-row>
 </mat-toolbar>
+<button (click)="f()">  asdad</button>
+<button (click)="ff()">  22222</button>
+
+<!-- us = {{user.Username}} -->
+{{a}}
 <!-- <router-outlet></router-outlet> -->
