@@ -35,8 +35,8 @@ export class RegisterComponent {
     }
     register() {
         let user = new User();
-        user.Username = "Admin2";
-        user.Password = "AdminPass";
+        user.username = "Admin2";
+        user.password = "AdminPass";
 
         if (this.registerForm.valid) {
             this.accountService.register(user)

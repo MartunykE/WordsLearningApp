@@ -1,11 +1,11 @@
 
 
 export class User {
-    public Id?: number;
-    public ChatId?: number;
-    public Username: string;
-    public Password: string;
-    public StartSendWordTime?: Date;
-    public FinishSendWordTime?: Date;
-    public Token?: string;
+    public id?: number;
+    public chatId?: number;
+    public username: string;
+    public password: string;
+    public startSendWordTime?: Date;
+    public finishSendWordTime?: Date;
+    public token?: string;
 }

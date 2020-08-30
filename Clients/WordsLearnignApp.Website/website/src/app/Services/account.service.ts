@@ -20,9 +20,6 @@ export class AccountService {
 
     register(user: User) {       
         
-        console.log(user.Username);
-        console.log(user.Password); 
-
         return this.httpClient.post(`${environment.usersUrl}/Register`, user);
     }
 
@@ -31,7 +28,7 @@ export class AccountService {
         return this.httpClient.post<User>(`${environment.usersUrl}/Authenticate`, { username, password })
             .pipe(map(user => {
 
-                console.log("acc Secvice"+ user.Id);
+                console.log("acc Secvice "+ user.id);
                 localStorage.setItem('user', JSON.stringify(user));
                 this.currentUser.next(user);
                 return user;

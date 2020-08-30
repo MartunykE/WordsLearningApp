@@ -74,7 +74,7 @@ namespace WordsLeanignApp.API.Controllers
                 //TODO: look why id is null
                 Id = userDTO.Id,
                 ChatId = userDTO.ChatId,
-                Name = userDTO.Username,
+                Username = userDTO.Username,
                 Token = tokenString
             });
         }
