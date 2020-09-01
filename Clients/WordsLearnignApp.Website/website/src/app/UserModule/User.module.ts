@@ -11,6 +11,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { HttpClientModule } from '@angular/common/http';
+import { WordsComponent } from './Words/words.component';
+import { WordsService } from '../Services/words.service';
 
 
 @NgModule({
@@ -26,12 +28,14 @@ import { HttpClientModule } from '@angular/common/http';
     ],
     providers:[
         AccountService,
-        AuthGuard
+        AuthGuard,
+        WordsService
     ],
     declarations:[
         UserComponent,
         UserLayoutComponent,
-        EditUserComponent
+        EditUserComponent,
+        WordsComponent
     ]
 
 })

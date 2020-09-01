@@ -41,7 +41,7 @@ namespace WordsLearningApp.DAL.Repositories
 
         public IEnumerable<Word> GetAll()
         {
-            return db.Words.Include(p => p.Id).ToList();
+            return db.Words.ToList();
         }
 
         public void Update(Word item)

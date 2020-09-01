@@ -25,10 +25,11 @@ namespace WordsLeanignApp.API.Controllers
 
         // GET: api/<controller>
         [HttpGet]
-        public IEnumerable<string> GetWords()
+        public IEnumerable<WordDTO> GetWords()
         {
-            //List<WordDTO> words = wordsService.GetWords()
-            return new string[] { "value1", "value2" };
+            WordDTO wordDTO = new WordDTO { Name = "qeqe" };
+            List<WordDTO> words = wordsService.GetAllWords().ToList();
+            return words;
         }
 
         // GET api/<controller>/5

@@ -8,5 +8,11 @@ import { AccountService } from 'src/app/Services/account.service';
     styleUrls: ['./userLayout.component.css']
 })
 export class UserLayoutComponent{
+    
+    
     constructor(private accountService: AccountService){}
+    
+    ngOnInit(){
+        
+    }
 }

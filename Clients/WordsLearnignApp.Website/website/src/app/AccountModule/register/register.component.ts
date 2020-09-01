@@ -27,7 +27,7 @@ export class RegisterComponent {
         this.registerForm = this.formBuilder.group({
             Username: ['', Validators.required],
             Password: ['', [Validators.required, Validators.minLength(6)]],
-            ChatId: [''],
+            ChatId: ['', Validators.required],
             StartSendWordTime: [''],
             FinishSendWordTime: ['']
         });

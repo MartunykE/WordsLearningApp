@@ -19,9 +19,6 @@ export class LayoutComponent {
         }); 
     }
    
-    
-   
-    
     logout(){
         this.accountService.logout();
         this.router.navigate(['Account/Login']);

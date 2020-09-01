@@ -13,13 +13,13 @@
       <mat-icon>accessibility</mat-icon>
     </button>
 
-    <button *ngIf="!user" [routerLink]="['Account/Login']" mat-icon-button>
+    <button *ngIf="!user" routerLink="Account/Login" mat-icon-button>
       <mat-icon> login </mat-icon>
     </button>
     <button *ngIf="user" (click)="logout()" mat-icon-button>
       <mat-icon> exit_to_app </mat-icon> 
     </button>
-    <button routerLink="User/{{user.id}}/Edit">
+    <button *ngIf="user" routerLink="User/{{user.id}}/Edit">
       <mat-icon> settings </mat-icon>
     </button>
   </mat-toolbar-row>

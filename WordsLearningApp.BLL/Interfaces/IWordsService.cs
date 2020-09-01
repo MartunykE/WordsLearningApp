@@ -13,6 +13,7 @@ namespace WordsLearningApp.BLL.Interfaces
         public Timer Timer { get; }
         public void CreateWord(WordDTO word);
 
+        public IEnumerable<WordDTO> GetAllWords();
         public Task<int> EditWord(WordDTO word);
         public WordDTO GetWord(int id);
         public void DeleteWord(int id);

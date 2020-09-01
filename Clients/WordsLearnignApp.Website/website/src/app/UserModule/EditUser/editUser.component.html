@@ -1,1 +1,44 @@
-edit
+
+<form [formGroup]="editForm">
+
+    <div>
+        <mat-form-field appearance="fill">
+            <mat-label> Login </mat-label>
+            <input matInput type="text" formControlName="username">
+        </mat-form-field>
+    </div>
+
+    <div>
+        <mat-form-field appearance="fill">
+            <mat-label> chatId </mat-label>
+            <input matInput type="text" formControlName="chatId">
+        </mat-form-field>
+    </div>
+
+    <div>
+        <mat-form-field appearance="fill">
+            <mat-label> password </mat-label>
+            <input matInput type="password" formControlName="password">
+        </mat-form-field>
+    </div>
+
+    <div>
+        <mat-form-field appearance="fill">
+            <mat-label> StartSendWordTime </mat-label>
+            <input matInput type="time" formControlName="startSendWordTime">
+        </mat-form-field>
+    </div>
+
+    <div>
+        <mat-form-field appearance="fill">
+            <mat-label> FinishSendWordTime </mat-label>
+            <input matInput type="time" formControlName="finishSendWordTime">
+        </mat-form-field>
+    </div>
+
+    <div>
+        <mat-button-toggle (click)="saveChanges()">
+            Save
+        </mat-button-toggle>
+    </div>
+</form>

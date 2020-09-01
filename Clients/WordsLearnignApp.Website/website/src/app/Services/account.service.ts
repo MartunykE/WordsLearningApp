@@ -28,7 +28,6 @@ export class AccountService {
         return this.httpClient.post<User>(`${environment.usersUrl}/Authenticate`, { username, password })
             .pipe(map(user => {
 
-                console.log("acc Secvice "+ user.id);
                 localStorage.setItem('user', JSON.stringify(user));
                 this.currentUser.next(user);
                 return user;
@@ -38,5 +37,9 @@ export class AccountService {
     logout() {
         localStorage.removeItem('user');
         this.currentUser.next(null);
+    }
+
+    editAccount(user:User){
+        //TODO:EditUser
     }
 }

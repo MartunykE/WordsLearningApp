@@ -11,19 +11,22 @@ using System.Timers;
 using System.Diagnostics;
 using System.Data.Common;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace WordsLearningApp.BLL.Services
 {
     public class WordsService : IWordsService
     {
+        IMapper mapper;
         IUntiOfWork db { get; set; }
         List<User> scheduledUsers;
         Timer timer;
 
         public Timer Timer { get { return timer; } }
 
-        public WordsService(IUntiOfWork untiOfWork)
+        public WordsService(IUntiOfWork untiOfWork, IMapper mapper)
         {
+            this.mapper = mapper;
             db = untiOfWork;
             scheduledUsers = new List<User>();
 
@@ -95,11 +98,14 @@ namespace WordsLearningApp.BLL.Services
             }
             return wordDTO;
         }
-        //public IEnumerable<WordDTO> GetWords()
-        //{
-        //    automapper!
-        //        return db.Words.GetAll();
-        //}
+        public IEnumerable<WordDTO> GetAllWords()
+        {
+            //automapper!
+            var wordsList = db.Words.GetAll().ToList();
+            var lost = new List<WordDTO>();
+            lost = mapper.Map<List<WordDTO>>(wordsList);
+            return lost;
+        }
 
         private void GetScheduledUsers(object sender, ElapsedEventArgs e)
         {
