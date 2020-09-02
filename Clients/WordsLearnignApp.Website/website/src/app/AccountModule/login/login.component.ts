@@ -25,9 +25,6 @@ export class LoginComponent {
     }
 
     login() {
-        console.log(this.loginForm.value.Login);
-        console.log(this.loginForm.value.Password);
-
         if (this.loginForm.valid) {
             console.log('valid');
             this.accountService.login(this.loginForm.value.Login, this.loginForm.value.Password)

@@ -1,0 +1,8 @@
+
+
+ <mat-form-field appearence="fill">
+    <input matInput #wordName value="{{selectedWord.name}}">
+</mat-form-field>
+<button (click)="saveChanges(wordName.value)">
+    <mat-icon> save </mat-icon>
+</button>

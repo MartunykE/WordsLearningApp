@@ -13,8 +13,7 @@ namespace WordsLearningApp.BLL.AutoMapper
             CreateMap<UserDTO, User>();
             CreateMap<WordDTO, Word>();
             CreateMap<Word, WordDTO>();
-            //CreateMap<List<Word>, List<WordDTO>>();
-            //CreateMap<List<WordDTO>, List<Word>>();
+            
 
         }
     }

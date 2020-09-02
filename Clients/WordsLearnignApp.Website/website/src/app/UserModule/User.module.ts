@@ -13,6 +13,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { HttpClientModule } from '@angular/common/http';
 import { WordsComponent } from './Words/words.component';
 import { WordsService } from '../Services/words.service';
+import { CommonModule } from '@angular/common';
+import { WordsModule } from './Words/Words.module';
 
 
 @NgModule({
@@ -25,6 +27,8 @@ import { WordsService } from '../Services/words.service';
         HttpClientModule,
         MatNativeDateModule,
         ReactiveFormsModule,
+        CommonModule,
+        WordsModule
     ],
     providers:[
         AccountService,
@@ -35,7 +39,6 @@ import { WordsService } from '../Services/words.service';
         UserComponent,
         UserLayoutComponent,
         EditUserComponent,
-        WordsComponent
     ]
 
 })

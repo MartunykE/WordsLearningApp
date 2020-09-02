@@ -3,6 +3,7 @@ import { WordsService } from 'src/app/Services/words.service';
 import { Word } from 'src/app/Models/Word';
 import { AccountService } from 'src/app/Services/account.service';
 import { User } from 'src/app/Models/User';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
@@ -12,13 +13,17 @@ import { User } from 'src/app/Models/User';
 })
 export class WordsComponent {
 
+    createEnabled = false;
+    editEnabled = false;
+    wordInEditing = new Word();
     user: User;
     words: Array<Word>;
-    displayColumns = ['name'];
+    displayColumns = ['name', 'learningLevel','actions'];
     constructor(private wordsService: WordsService, private accountService: AccountService) { }
 
     ngOnInit(){
         this.accountService.currentUser.subscribe(currentUser => this.user = currentUser);
+        this.getAllWords();
     }
 
 
@@ -32,13 +37,28 @@ export class WordsComponent {
         word.name = wordName;
         word.userChatId = this.user.chatId;
         this.wordsService.createWord(word);
+        this.createEnabled = false;
     }
+
     getAllWords(){
-        this.wordsService.getAllWords().subscribe(words=> {this.words = words;
-            this.words.forEach(element => {
-                console.log(element.name);
-            });
-        });
+        this.wordsService.getAllWords().subscribe(words=> this.words = words);
         
     }
+    
+    editWord(word: Word){
+        this.wordInEditing = word;
+        this.editEnabled = true;
+    }
+
+    onChangedWord(word: Word){
+        this.editEnabled = false;
+        this.wordInEditing = null;
+        this.words.forEach(element => {
+            console.log(element.name);
+        });
+
+        this.wordsService.updateWord(word);
+    }
+
+   
 }

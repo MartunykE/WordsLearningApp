@@ -21,4 +21,9 @@ import { env } from 'process';
      createWord(word: Word){
          return this.httpClient.post(`${environment.wordsUrl}`, word).subscribe();
      }
+
+     updateWord(word:Word){
+         return this.httpClient.put(`${environment.wordsUrl}/${word.id}`, word).subscribe();
+     }
+
  }
