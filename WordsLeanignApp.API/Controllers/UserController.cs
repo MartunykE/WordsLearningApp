@@ -15,7 +15,7 @@ using WordsLearningApp.BLL.Interfaces;
 
 namespace WordsLeanignApp.API.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase

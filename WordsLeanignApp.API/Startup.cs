@@ -42,6 +42,7 @@ namespace WordsLeanignApp.API
             //var appSettings = Configuration.Get<AppSettings>();
             //var key = Encoding.ASCII.GetBytes(appSettings.Secret);
             var key = Encoding.ASCII.GetBytes("Words Secret SecretSecretSecretSecretSecretSecretSecretSecret");
+            DependenciesRoot.InjectDependencies(services, connection);
 
             services.AddAuthentication(x =>
             {
@@ -74,7 +75,6 @@ namespace WordsLeanignApp.API
                 };
             });
 
-            DependenciesRoot.InjectDependencies(services, connection);
             var mapperConfig = new MapperConfiguration(conf => conf.AddProfile(new MappingProfile()));
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
@@ -96,8 +96,8 @@ namespace WordsLeanignApp.API
                 .AllowAnyMethod()
                 .AllowAnyHeader());
 
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

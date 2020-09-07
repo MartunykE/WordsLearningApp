@@ -4,15 +4,14 @@ using System.Data;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WordsLearningApp.BLL.DTO;
 using WordsLearningApp.BLL.Interfaces;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace WordsLeanignApp.API.Controllers
 {
-
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class WordsController : ControllerBase
@@ -27,7 +26,6 @@ namespace WordsLeanignApp.API.Controllers
         [HttpGet]
         public IEnumerable<WordDTO> GetWords()
         {
-            WordDTO wordDTO = new WordDTO { Name = "qeqe" };
             List<WordDTO> words = wordsService.GetAllWords().ToList();
             return words;
         }
