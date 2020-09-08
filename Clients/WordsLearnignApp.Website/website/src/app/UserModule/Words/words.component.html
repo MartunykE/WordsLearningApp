@@ -1,6 +1,11 @@
 <mat-button-toggle (click)="createEnabled = !createEnabled"> Create word </mat-button-toggle>
 
-<table mat-table [dataSource]="words">
+<div>
+    <mat-button-toggle (click)="sortByAsc()"> A-Z </mat-button-toggle>
+    <mat-button-toggle (click)="sortWords()"> Z-A </mat-button-toggle>
+</div>
+
+<table mat-table [dataSource]="displayedWords">
 
     <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> Word </th>
@@ -32,9 +37,19 @@
 
     <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
     <tr mat-row *matRowDef="let word; columns: displayColumns"></tr>
-
+    
 </table>
+<!-- <mat-paginator
+     [length]="10"
+     [pageSize]="5"           
+        (page)="pageEvent = $event" (click)="getWordsPage()">
 
+    </mat-paginator> -->
+<div class="paginator">
+    <div class="page-button" *ngFor="let word of words; index as i;">
+        <button (click)="getWordsForPage(i)"> {{i}} </button>
+    </div>
+</div>
 <div *ngIf="createEnabled">
     <mat-form-field appearence="fill">
         <input matInput #wordName>

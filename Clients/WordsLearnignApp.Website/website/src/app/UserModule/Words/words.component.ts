@@ -3,7 +3,7 @@ import { WordsService } from 'src/app/Services/words.service';
 import { Word } from 'src/app/Models/Word';
 import { AccountService } from 'src/app/Services/account.service';
 import { User } from 'src/app/Models/User';
-import { CommonModule } from '@angular/common';
+import { PageEvent } from '@angular/material/paginator';
 
 
 @Component({
@@ -18,14 +18,17 @@ export class WordsComponent {
     wordInEditing = new Word();
     user: User;
     words: Array<Word>;
-    displayColumns = ['name', 'learningLevel','actions'];
+    displayColumns = ['name', 'learningLevel', 'actions'];
+    displayedWords: Array<Word>;
+    pageSize = 5;
+    currentPageIndex = 0;
+
     constructor(private wordsService: WordsService, private accountService: AccountService) { }
 
-    ngOnInit(){
+    ngOnInit() {
         this.accountService.currentUser.subscribe(currentUser => this.user = currentUser);
         this.getAllWords();
     }
-
 
     getWord(id: number) {
         this.wordsService.getWord(1).subscribe(w => console.log(w.name));
@@ -40,17 +43,27 @@ export class WordsComponent {
         this.createEnabled = false;
     }
 
-    getAllWords(){
-        this.wordsService.getAllWords().subscribe(words=> this.words = words);
-        
+    getAllWords() {
+        this.wordsService.getAllWords().subscribe(words => {
+            this.words = words;
+            this.getWordsForPage(this.currentPageIndex);
+        });
     }
-    
-    editWord(word: Word){
+
+    getWordsForPage(pageIndex) {
+        this.currentPageIndex = pageIndex;
+        let start = pageIndex * this.pageSize;
+        console.log(start + " start");
+        let end = start + this.pageSize;
+        this.displayedWords = this.words.slice(start, end);
+    }
+
+    editWord(word: Word) {
         this.wordInEditing = word;
         this.editEnabled = true;
     }
 
-    onChangedWord(word: Word){
+    onChangedWord(word: Word) {
         this.editEnabled = false;
         this.wordInEditing = null;
         this.words.forEach(element => {
@@ -60,5 +73,39 @@ export class WordsComponent {
         this.wordsService.updateWord(word);
     }
 
-   
+    sortByAsc() {
+        
+        this.words.sort((a, b) => {
+
+            if (a.name > b.name) {
+                return 1;
+            }
+            else if (a.name === b.name) {
+                return 0;
+            }
+            else {
+                return -1;
+            }
+
+        });
+        this.getWordsForPage(this.currentPageIndex);
+
+    }
+    sortWords() {
+        this.words.sort((a, b) => {
+
+            if (a.name < b.name) {
+                return 1;
+            }
+            else if (a.name === b.name) {
+                return 0;
+            }
+            else {
+                return -1;
+            }
+
+        });
+        this.getWordsForPage(this.currentPageIndex);
+    }
+
 }

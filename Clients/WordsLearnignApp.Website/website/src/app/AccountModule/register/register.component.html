@@ -1,35 +1,34 @@
-<h4>Registration</h4>
-<!-- <button (click)="register()"> click</button> -->
 
 
-<form [formGroup]="registerForm" >
+<form [formGroup]="registerForm" class="form">
+    <h4>Registration</h4>
 
-    <div >
-        <mat-form-field appearance="fill">
+    <div class="field">
+        <mat-form-field class ="fld" appearance="fill">
             <mat-label> Login </mat-label>
-            <input matInput type="text" formControlName="Username">
+            <input class ="fld"  matInput type="text" formControlName="Username">
         </mat-form-field>
     </div>
 
-    <div>
+    <div  class="field">
         <mat-form-field  appearance="fill">
             <mat-label> Password </mat-label>
             <input matInput type="password" formControlName="Password">
         </mat-form-field>
     </div>
-    <div>
+    <div class="field">
         <mat-form-field  appearance="fill">
             <mat-label> Telegram chat id </mat-label>
             <input matInput type="text" formControlName="ChatId">
         </mat-form-field>
     </div>
-    <div>
+    <div class="field">
         <mat-form-field  appearance="fill">
             <mat-label> Sending words start time </mat-label>
             <input matInput type="time" formControlName="StartSendWordTime">
         </mat-form-field>
     </div>
-    <div>
+    <div class="field">
         <mat-form-field  appearance="fill">
             <mat-label> Sending words finish time </mat-label>
             <input matInput type="time" formControlName="FinishSendWordTime">

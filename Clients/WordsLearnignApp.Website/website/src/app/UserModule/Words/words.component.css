@@ -4,3 +4,7 @@
     border: 1px solid white;
     border-radius: 10%;
 }
+.page-button{
+    display: inline-block;
+    margin: 2px;
+}
