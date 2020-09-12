@@ -1,0 +1,27 @@
+import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { User } from 'src/app/Models/User';
+import { AccountService } from 'src/app/Services/account.service';
+
+
+@Component({
+    selector: 'layout-menu',
+    templateUrl: './layoutMenu.component.html',
+    styleUrls: ['./layoutMenu.component.css']
+})
+export class LayoutMenuComponent{
+
+    @Input() user:User;
+    
+    constructor(private accountService: AccountService, private router: Router){}
+
+    ngOnInit(){
+
+    }
+
+    logout(){
+        this.accountService.logout();
+        this.router.navigate(['Account/Login']);
+       
+    }
+}

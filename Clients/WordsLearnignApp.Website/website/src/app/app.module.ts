@@ -15,21 +15,21 @@ import { LayoutComponent } from './layout/layout.component';
 import { UserModule } from './UserModule/User.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './Helpers/jwt-interceptor';
+import { LayoutModule } from './layout/Layout.module';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LayoutComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
     AccountModule,
-    UserModule
-
+    UserModule,
+    LayoutModule
   ],
   exports: [
   ],
