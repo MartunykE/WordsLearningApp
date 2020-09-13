@@ -17,3 +17,10 @@
   .app-name{
       content: center;
   }
+  .menu{
+    position: absolute;
+    right: 5%;
+    top: 5%;
+    border: 1px solid black;
+    background-color: blue;
+  }

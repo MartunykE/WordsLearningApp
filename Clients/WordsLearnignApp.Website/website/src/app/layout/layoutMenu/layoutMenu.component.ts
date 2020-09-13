@@ -11,10 +11,14 @@ import { AccountService } from 'src/app/Services/account.service';
 })
 export class LayoutMenuComponent{
 
-    @Input() user:User;
+    user: User;
     
-    constructor(private accountService: AccountService, private router: Router){}
-
+    constructor(private accountService: AccountService, private router:Router){ 
+        this.accountService.currentUser.subscribe(currentUser=>{            
+            this.user = currentUser
+        }); 
+    }
+   
     ngOnInit(){
 
     }

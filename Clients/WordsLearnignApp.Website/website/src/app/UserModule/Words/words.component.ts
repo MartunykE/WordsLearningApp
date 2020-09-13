@@ -53,7 +53,6 @@ export class WordsComponent {
     getWordsForPage(pageIndex) {
         this.currentPageIndex = pageIndex;
         let start = pageIndex * this.pageSize;
-        console.log(start + " start");
         let end = start + this.pageSize;
         this.displayedWords = this.words.slice(start, end);
     }
@@ -66,21 +65,16 @@ export class WordsComponent {
     onChangedWord(word: Word) {
         this.editEnabled = false;
         this.wordInEditing = null;
-        this.words.forEach(element => {
-            console.log(element.name);
-        });
-
         this.wordsService.updateWord(word);
     }
 
-    sortByAsc() {
-        
-        this.words.sort((a, b) => {
+    sortWords(compareCondition, equalCondition) {
+        this.words.sort((firstWord, secondWord) => {
 
-            if (a.name > b.name) {
+            if (compareCondition(firstWord, secondWord)) {
                 return 1;
             }
-            else if (a.name === b.name) {
+            else if (equalCondition(firstWord, secondWord)) {
                 return 0;
             }
             else {
@@ -89,23 +83,20 @@ export class WordsComponent {
 
         });
         this.getWordsForPage(this.currentPageIndex);
+    }
+
+    sortByAsc() {
+        this.sortWords(
+            ((a: Word, b: Word) => { return a.name > b.name }),
+            ((a: Word, b: Word) => { return a.name == b.name })
+        );
 
     }
-    sortWords() {
-        this.words.sort((a, b) => {
-
-            if (a.name < b.name) {
-                return 1;
-            }
-            else if (a.name === b.name) {
-                return 0;
-            }
-            else {
-                return -1;
-            }
-
-        });
-        this.getWordsForPage(this.currentPageIndex);
+    sortByDesc() {
+        this.sortWords(
+            ((a: Word, b: Word) => { return a.name < b.name }),
+            ((a: Word, b: Word) => { return a.name == b.name })
+        );
     }
 
 }

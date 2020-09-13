@@ -2,7 +2,7 @@
 
 <div>
     <mat-button-toggle (click)="sortByAsc()"> A-Z </mat-button-toggle>
-    <mat-button-toggle (click)="sortWords()"> Z-A </mat-button-toggle>
+    <mat-button-toggle (click)="sortByDesc()"> Z-A </mat-button-toggle>
 </div>
 
 <table mat-table [dataSource]="displayedWords">
@@ -39,12 +39,7 @@
     <tr mat-row *matRowDef="let word; columns: displayColumns"></tr>
     
 </table>
-<!-- <mat-paginator
-     [length]="10"
-     [pageSize]="5"           
-        (page)="pageEvent = $event" (click)="getWordsPage()">
 
-    </mat-paginator> -->
 <div class="paginator">
     <div class="page-button" *ngFor="let word of words; index as i;">
         <button (click)="getWordsForPage(i)"> {{i}} </button>

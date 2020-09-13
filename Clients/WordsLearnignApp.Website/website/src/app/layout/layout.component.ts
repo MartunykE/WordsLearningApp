@@ -11,14 +11,10 @@ import {  LayoutMenuComponent} from "../layout/layoutMenu/layoutMenu.component";
     styleUrls: ['./layout.component.css']
 })
 export class LayoutComponent {
-    @Output() user: User;
+
+    menuClicked: boolean = false;
+
     
-    constructor(private accountService: AccountService, private router:Router){ 
-        this.accountService.currentUser.subscribe(currentUser=>{            
-            this.user = currentUser
-        }); 
-    }
-   
     // logout(){
     //     this.accountService.logout();
     //     this.router.navigate(['Account/Login']);
